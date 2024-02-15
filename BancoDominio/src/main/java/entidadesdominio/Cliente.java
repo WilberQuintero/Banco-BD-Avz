@@ -1,3 +1,95 @@
+<<<<<<< HEAD
+
+package entidadesdominio;
+
+import java.util.Date;
+import java.util.Objects;
+
+/**
+ *
+ * @author Usuario
+ */
+public class Cliente {
+    private int cliente_id;
+    private String nombre;
+    private String apellidoPaterno;
+    private String apellidoMaterno;
+    private Date fechaNac; 
+    private Usuario usuario;
+    private Direccion direccion;
+
+    public Cliente() {
+    }
+
+    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNac, Usuario usuario, Direccion direccion) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.fechaNac = fechaNac;
+        this.usuario = usuario;
+        this.direccion = direccion;
+    }
+
+    public int getCliente_id() {
+        return cliente_id;
+    }
+
+    public void setCliente_id(int cliente_id) {
+        this.cliente_id = cliente_id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
+
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
+    }
+
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
+    }
+
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
+    }
+
+    public Date getFechaNac() {
+        return fechaNac;
+    }
+
+    public void setFechaNac(Date fechaNac) {
+        this.fechaNac = fechaNac;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+            
+    }
+
+   
+}
+=======
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -141,3 +233,4 @@ public class Cliente {
     
     
 }
+>>>>>>> 05abff7aa39841838670997d4ee4f8d5fc681076
