@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import entidadesdominio.Direccion;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -71,7 +72,32 @@ public class DireccionDAO implements IDireccionDAO{
      
     @Override
     public List<Direccion> consultarTodasDirecciones() throws PersistenciaException {
+        String codigoSQL = "SELECT * FROM DIRECCIONES";
+        List<Direccion> direccionesLista = new ArrayList<>();
 
+       try (Connection conexion = conexionBD.crearConexion();
+         PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL);
+         
+               ResultSet resultado = comandoSQL.executeQuery()) {
+
+           while (resultado.next()) {
+                int direccion_id = resultado.getInt("direccion_id");
+                String calle = resultado.getString("calle");
+                String colonia = resultado.getString("colonia");
+                String numero = resultado.getString("numero");
+                
+
+                Direccion direccion = new Direccion(direccion_id, calle, colonia, numero);
+                direccionesLista.add(direccion);
+            }
+
+            LOG.log(Level.INFO, "Se consultaron {0} clientes", direccionesLista.size());
+            return direccionesLista;
+
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "No se pudieron obtener los clientes", e);
+            throw new PersistenciaException("No se pudieron consultar los clientes", e);
+        }
     }
 
     
