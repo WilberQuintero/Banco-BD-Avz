@@ -35,9 +35,10 @@ foreign key (usuario_id) references Usuarios (usuario_id)
 
 create table Cuentas(
 cuenta_id int primary key auto_increment,
-numeroCuenta varchar (100),
-fechaApertura date,
-saldo varchar (100) not null,
+numeroCuenta varchar (16) not null unique,
+fechaApertura date not null,
+saldo decimal (18, 2) not null default 0,
+estado enum ("Activa","Cancelada") not null default "Activa",
 cliente_id int ,
 foreign key (cliente_id) references Clientes (cliente_id)
 ); 
@@ -62,4 +63,8 @@ cliente_id int,
 foreign key (cliente_id) references Clientes (cliente_id)
 );
 
+
+
+insert into cuentas () values();
+-- drop database avance1bd;
 
