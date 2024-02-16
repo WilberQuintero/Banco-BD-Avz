@@ -22,7 +22,7 @@ public class RetiroSinCuenta {
     public RetiroSinCuenta() {
     }
 
-    public RetiroSinCuenta(int transaccion_id, Date fecha, int monto, String folio, String contra, int cliente_id) {
+    public RetiroSinCuenta(int transaccion_id, String folio, int monto, String contra, Date fecha, int cliente_id) {
         this.transaccion_id = transaccion_id;
         this.fecha = fecha;
         this.monto = monto;
@@ -32,7 +32,7 @@ public class RetiroSinCuenta {
     }
 
     
-    public RetiroSinCuenta(Date fecha, int monto, String folio, String contra, int cliente_id) {
+    public RetiroSinCuenta(String folio, int monto, String contra, Date fecha, int cliente_id) {
         this.fecha = fecha;
         this.monto = monto;
         this.folio = folio;

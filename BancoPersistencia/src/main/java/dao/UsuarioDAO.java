@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,13 +60,55 @@ public class UsuarioDAO implements IUsuarioDAO{
     }
 
     @Override
-    public Usuario consultarUsuario(int id) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Usuario consultarUsuario(int usuario_id) throws PersistenciaException {
+        String codigoSQL = "SELECT * FROM usuarios WHERE id = (?)";
+        String codigoSQL2 = String.format("select * from usuarios where usuario_id = %d", usuario_id);
+
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            comandoSQL.setInt(1, usuario_id);
+            ResultSet resultado = comandoSQL.executeQuery();
+          
+            resultado.next();
+
+           Usuario usuarioConsultado = new Usuario(resultado.getInt(1), 
+                   resultado.getString(2), resultado.getNString(3)
+           );
+           
+     return usuarioConsultado;
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Usuario no encontrada", e);
+            throw new PersistenciaException("No se ha encontrado ningún usuario", e);
+        }
     }
 
     @Override
     public List<Usuario> consultarTodosUsuarios() throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String codigoSQL = "SELECT * FROM usuarios";
+        List<Usuario> usuariosLista = new ArrayList<>();
+
+       try (Connection conexion = conexionBD.crearConexion();
+         PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL);
+         
+               ResultSet resultado = comandoSQL.executeQuery()) {
+
+           while (resultado.next()) {
+                int usuario_id = resultado.getInt("usuario_id");
+                String nombreUsuario = resultado.getString("nombreUsuario");
+                String contra = resultado.getString("contra");
+
+                Usuario usuario = new Usuario(usuario_id, contra, nombreUsuario);
+                usuariosLista.add(usuario);
+            }
+
+            LOG.log(Level.INFO, "Se consultaron {0} ususarios", usuariosLista.size());
+            return usuariosLista;
+
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "No se pudieron obtener los usuarios", e);
+            throw new PersistenciaException("No se pudieron consultar los usuarios", e);
+        }
     }
     
 }

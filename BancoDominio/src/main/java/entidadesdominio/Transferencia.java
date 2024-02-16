@@ -13,27 +13,28 @@ import java.util.Objects;
  */
 public class Transferencia {
     private int transaccion_id;
+    private int cuentaDestino;
+     private int monto;
     private Date fecha;
-    private int monto;
-    private int cuentaEnvio;
     private int cuenta_id;
 
     public Transferencia() {
     }
 
-    public Transferencia(int transaccion_id, Date fecha, int monto, int cuentaEnvio, int cuenta_id) {
-        this.transaccion_id = transaccion_id;
-        this.fecha = fecha;
+    public Transferencia(int cuentaDestino, int monto, Date fecha, int cuenta_id) {
+        this.cuentaDestino = cuentaDestino;
         this.monto = monto;
-        this.cuentaEnvio = cuentaEnvio;
+        this.fecha = fecha;
         this.cuenta_id = cuenta_id;
     }
 
-    
-    public Transferencia(Date fecha, int monto, int cuentaEnvio, int cuenta_id) {
-        this.fecha = fecha;
+
+
+    public Transferencia(int transaccion_id, int cuentaDestino, int monto, Date fecha, int cuenta_id) {
+        this.transaccion_id = transaccion_id;
+        this.cuentaDestino = cuentaDestino;
         this.monto = monto;
-        this.cuentaEnvio = cuentaEnvio;
+        this.fecha = fecha;
         this.cuenta_id = cuenta_id;
     }
 
@@ -45,12 +46,12 @@ public class Transferencia {
         this.transaccion_id = transaccion_id;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public int getCuentaDestino() {
+        return cuentaDestino;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setCuentaDestino(int cuentaDestino) {
+        this.cuentaDestino = cuentaDestino;
     }
 
     public int getMonto() {
@@ -61,12 +62,12 @@ public class Transferencia {
         this.monto = monto;
     }
 
-    public int getCuentaEnvio() {
-        return cuentaEnvio;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setCuentaEnvio(int cuentaEnvio) {
-        this.cuentaEnvio = cuentaEnvio;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public int getCuenta_id() {
@@ -79,7 +80,6 @@ public class Transferencia {
 
     @Override
     public String toString() {
-        return "Transferencia{" + "transaccion_id=" + transaccion_id + ", fecha=" + fecha + ", monto=" + monto + ", cuentaEnvio=" + cuentaEnvio + ", cuenta_id=" + cuenta_id + '}';
+        return "Transferencia{" + "transaccion_id=" + transaccion_id + ", cuentaDestino=" + cuentaDestino + ", monto=" + monto + ", fecha=" + fecha + ", cuenta_id=" + cuenta_id + '}';
     }
-
 }

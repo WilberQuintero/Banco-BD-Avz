@@ -47,7 +47,7 @@ foreign key (cliente_id) references Clientes (cliente_id)
 create table Transferencias (
 transaccion_id int primary key auto_increment,
 cuentaDestino varchar (100) not null,
-monto varchar (100) not null,
+monto int (100) not null,
 fecha date not null,
 cuenta_id int,
 foreign key (cuenta_id) references Cuentas (cuenta_id)
@@ -56,7 +56,7 @@ foreign key (cuenta_id) references Cuentas (cuenta_id)
 create table RetirosSinCuenta (
 transaccion_id int primary key auto_increment,
 folio varchar (100) not null,
-monto varchar (100) not null,
+monto int (100) not null,
 contra varchar (100) not null,
 fecha date not null,
 cliente_id int,
