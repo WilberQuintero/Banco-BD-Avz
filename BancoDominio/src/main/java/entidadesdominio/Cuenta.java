@@ -15,14 +15,14 @@ public class Cuenta {
     private int cuenta_id;
     private String numeroCuenta;
     private Date fechaApertura;
-    private int saldo;
+    private float saldo;
     private String estado;
     private int cliente_id;
 
     public Cuenta() {
     }
 
-    public Cuenta(int cuenta_id, String numeroCuenta, Date fechaApertura, int saldo, String estado, int cliente_id) {
+    public Cuenta(int cuenta_id, String numeroCuenta, Date fechaApertura, float saldo, String estado, int cliente_id) {
         this.cuenta_id = cuenta_id;
         this.numeroCuenta = numeroCuenta;
         this.fechaApertura = fechaApertura;
@@ -32,7 +32,7 @@ public class Cuenta {
     }
     
     
-    public Cuenta(String numeroCuenta, Date fechaApertura, int saldo, String estado, int cliente_id) {
+    public Cuenta(String numeroCuenta, Date fechaApertura, float saldo, String estado, int cliente_id) {
         this.numeroCuenta = numeroCuenta;
         this.fechaApertura = fechaApertura;
         this.saldo = saldo;
@@ -64,7 +64,7 @@ public class Cuenta {
         this.fechaApertura = fechaApertura;
     }
 
-    public int getSaldo() {
+    public float getSaldo() {
         return saldo;
     }
 

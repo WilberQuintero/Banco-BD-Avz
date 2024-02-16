@@ -1,0 +1,6 @@
+entidadesdominio\Direccion.class
+entidadesdominio\Usuario.class
+entidadesdominio\Transferencia.class
+entidadesdominio\Cliente.class
+entidadesdominio\RetiroSinCuenta.class
+entidadesdominio\Cuenta.class
