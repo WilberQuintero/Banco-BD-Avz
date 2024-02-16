@@ -34,7 +34,7 @@ public class ClienteDAO implements IClienteDAO{
          
 
     @Override
-    public Cliente agregar(Cliente cliente) throws PersistenciaException {
+    public Cliente agregarTransferencia(Cliente cliente) throws PersistenciaException {
    
   String codigoSQL ="INSERT INTO CLIENTES(nombre, apellidoPaterno, apellidoMaterno, fechaNaci, direccion_id, usuario_id) VALUES (?,?,?,?,?,?,)";
   
@@ -63,7 +63,7 @@ public class ClienteDAO implements IClienteDAO{
     }
 
     @Override
-    public Cliente actualizar(Cliente cliente) throws PersistenciaException {
+    public Cliente actualizarCliente(Cliente cliente) throws PersistenciaException {
 
             String codigoSQL = "UPDATE CLIENTES SET nombre=?, apellidoPaterno=?, apellidoMaterno=? WHERE id=?";
 
@@ -77,8 +77,8 @@ public class ClienteDAO implements IClienteDAO{
               comandoSQL.setInt(7, cliente.getCliente_id());
               comandoSQL.executeUpdate();
 
-            int registrosModificados = comandoSQL.executeUpdate();
-           LOG.log(Level.INFO, "Se actualizó el cliente con éxito {0} ", registrosModificados);
+            int registros = comandoSQL.executeUpdate();
+           LOG.log(Level.INFO, "Se actualizó el cliente con éxito {0} ", registros);
            
             
             return consultarCliente(cliente.getCliente_id());

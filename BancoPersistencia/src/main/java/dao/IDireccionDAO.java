@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface IDireccionDAO {
     
-    public Direccion agregar(Direccion cliente) throws PersistenciaException;
-    public Direccion actualizar(Direccion cliente) throws PersistenciaException;
+    public Direccion agregarDireccion(Direccion direccion) throws PersistenciaException;
+    public Direccion actualizarDireccion(Direccion direccion) throws PersistenciaException;
     public Direccion consultarDireccion(int id) throws PersistenciaException;
     public List<Direccion> consultarTodasDirecciones() throws PersistenciaException;
 
