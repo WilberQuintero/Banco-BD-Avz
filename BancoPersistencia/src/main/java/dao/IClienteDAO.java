@@ -2,7 +2,9 @@
 package dao;
 
 import Excepciones.PersistenciaException;
+import entidadesdominio.Cliente;
 import java.util.List;
+
 
 /**
  *
@@ -10,9 +12,10 @@ import java.util.List;
  */
 public interface IClienteDAO {
     
-     public ClienteDAO agregar(ClienteDAO cliente) throws PersistenciaException;
-    public ClienteDAO actualizar(ClienteDAO cliente) throws PersistenciaException;
-    public void eliminar (int id) throws PersistenciaException;
-    public ClienteDAO consultar(int id) throws PersistenciaException;
-    public List<ClienteDAO> consultarTodos() throws PersistenciaException;
-}
+     public Cliente agregar(Cliente cliente) throws PersistenciaException;
+     public Cliente actualizar (Cliente cliente) throws PersistenciaException;
+     public Cliente consultarCliente (int id) throws PersistenciaException;
+     public List<Cliente> consultarTodosClientes() throws PersistenciaException;
+   
+        
+    }
