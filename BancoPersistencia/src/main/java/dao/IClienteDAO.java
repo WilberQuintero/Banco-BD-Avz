@@ -12,8 +12,8 @@ import java.util.List;
  */
 public interface IClienteDAO {
     
-     public Cliente agregar(Cliente cliente) throws PersistenciaException;
-     public Cliente actualizar (Cliente cliente) throws PersistenciaException;
+     public Cliente agregarTransferencia(Cliente cliente) throws PersistenciaException;
+     public Cliente actualizarCliente (Cliente cliente) throws PersistenciaException;
      public Cliente consultarCliente (int id) throws PersistenciaException;
      public List<Cliente> consultarTodosClientes() throws PersistenciaException;
    
