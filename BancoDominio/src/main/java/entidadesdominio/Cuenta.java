@@ -13,15 +13,19 @@ import java.util.Objects;
  */
 public class Cuenta {
     private int cuenta_id;
+    private String numeroCuenta;
     private Date fechaApertura;
     private int saldo;
-
-    public Cuenta() {
-    }
-
-    public Cuenta(Date fechaApertura, int saldo) {
+    private String estado;
+    private int cliente_id;
+    
+    
+    public Cuenta(String numeroCuenta, Date fechaApertura, int saldo, String estado, int cliente_id) {
+        this.numeroCuenta = numeroCuenta;
         this.fechaApertura = fechaApertura;
         this.saldo = saldo;
+        this.estado = estado;
+        this.cliente_id = cliente_id;
     }
 
     public int getCuenta_id() {
@@ -30,6 +34,14 @@ public class Cuenta {
 
     public void setCuenta_id(int cuenta_id) {
         this.cuenta_id = cuenta_id;
+    }
+
+    public String getNumeroCuenta() {
+        return numeroCuenta;
+    }
+
+    public void setNumeroCuenta(String numeroCuenta) {
+        this.numeroCuenta = numeroCuenta;
     }
 
     public Date getFechaApertura() {
@@ -48,9 +60,25 @@ public class Cuenta {
         this.saldo = saldo;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public int getCliente_id() {
+        return cliente_id;
+    }
+
+    public void setCliente_id(int cliente_id) {
+        this.cliente_id = cliente_id;
+    }
+
     @Override
     public String toString() {
-        return "Cuenta{" + "cuenta_id=" + cuenta_id + ", fechaApertura=" + fechaApertura + ", saldo=" + saldo + '}';
+        return "Cuenta{" + "cuenta_id=" + cuenta_id + ", numeroCuenta=" + numeroCuenta + ", fechaApertura=" + fechaApertura + ", saldo=" + saldo + ", estado=" + estado + ", cliente_id=" + cliente_id + '}';
     }
     
 }

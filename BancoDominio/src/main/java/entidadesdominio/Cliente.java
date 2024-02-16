@@ -16,10 +16,8 @@ public class Cliente {
     private Date fechaNac; 
     private int usuario_id;
     private int direccion_id;
-
-    public Cliente() {
-    }
-
+    
+    
     public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNac, int usuario_id, int direccion_id) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;

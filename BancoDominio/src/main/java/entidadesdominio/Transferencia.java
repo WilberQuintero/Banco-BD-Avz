@@ -16,14 +16,13 @@ public class Transferencia {
     private Date fecha;
     private int monto;
     private int cuentaEnvio;
+    private int cuenta_id;
 
-    public Transferencia() {
-    }
-
-    public Transferencia(Date fecha, int monto, int cuentaEnvio) {
+    public Transferencia(Date fecha, int monto, int cuentaEnvio, int cuenta_id) {
         this.fecha = fecha;
         this.monto = monto;
         this.cuentaEnvio = cuentaEnvio;
+        this.cuenta_id = cuenta_id;
     }
 
     public int getTransaccion_id() {
@@ -54,13 +53,21 @@ public class Transferencia {
         return cuentaEnvio;
     }
 
-    public void setCuentaEnvio(int cuentaOrigen) {
-        this.cuentaEnvio = cuentaOrigen;
+    public void setCuentaEnvio(int cuentaEnvio) {
+        this.cuentaEnvio = cuentaEnvio;
+    }
+
+    public int getCuenta_id() {
+        return cuenta_id;
+    }
+
+    public void setCuenta_id(int cuenta_id) {
+        this.cuenta_id = cuenta_id;
     }
 
     @Override
     public String toString() {
-        return "Transferencia{" + "transaccion_id=" + transaccion_id + ", fecha=" + fecha + ", monto=" + monto + ", cuentaEnvio=" + cuentaEnvio + '}';
+        return "Transferencia{" + "transaccion_id=" + transaccion_id + ", fecha=" + fecha + ", monto=" + monto + ", cuentaEnvio=" + cuentaEnvio + ", cuenta_id=" + cuenta_id + '}';
     }
 
 }
