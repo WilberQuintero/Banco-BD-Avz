@@ -19,6 +19,19 @@ public class RetiroSinCuenta {
     private String contra;
     private int cliente_id;
 
+    public RetiroSinCuenta() {
+    }
+
+    public RetiroSinCuenta(int transaccion_id, Date fecha, int monto, String folio, String contra, int cliente_id) {
+        this.transaccion_id = transaccion_id;
+        this.fecha = fecha;
+        this.monto = monto;
+        this.folio = folio;
+        this.contra = contra;
+        this.cliente_id = cliente_id;
+    }
+
+    
     public RetiroSinCuenta(Date fecha, int monto, String folio, String contra, int cliente_id) {
         this.fecha = fecha;
         this.monto = monto;

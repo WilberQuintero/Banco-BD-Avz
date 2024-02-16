@@ -16,6 +16,16 @@ public class Direccion {
     private String colonia;
     private String numero;
 
+    public Direccion() {
+    }
+
+    public Direccion(int direccion_id, String calle, String colonia, String numero) {
+        this.direccion_id = direccion_id;
+        this.calle = calle;
+        this.colonia = colonia;
+        this.numero = numero;
+    }
+
     
     public Direccion(String calle, String colonia, String numero) {
         this.calle = calle;

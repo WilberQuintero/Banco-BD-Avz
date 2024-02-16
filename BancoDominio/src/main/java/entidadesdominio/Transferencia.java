@@ -18,6 +18,18 @@ public class Transferencia {
     private int cuentaEnvio;
     private int cuenta_id;
 
+    public Transferencia() {
+    }
+
+    public Transferencia(int transaccion_id, Date fecha, int monto, int cuentaEnvio, int cuenta_id) {
+        this.transaccion_id = transaccion_id;
+        this.fecha = fecha;
+        this.monto = monto;
+        this.cuentaEnvio = cuentaEnvio;
+        this.cuenta_id = cuenta_id;
+    }
+
+    
     public Transferencia(Date fecha, int monto, int cuentaEnvio, int cuenta_id) {
         this.fecha = fecha;
         this.monto = monto;

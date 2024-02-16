@@ -18,6 +18,18 @@ public class Cuenta {
     private int saldo;
     private String estado;
     private int cliente_id;
+
+    public Cuenta() {
+    }
+
+    public Cuenta(int cuenta_id, String numeroCuenta, Date fechaApertura, int saldo, String estado, int cliente_id) {
+        this.cuenta_id = cuenta_id;
+        this.numeroCuenta = numeroCuenta;
+        this.fechaApertura = fechaApertura;
+        this.saldo = saldo;
+        this.estado = estado;
+        this.cliente_id = cliente_id;
+    }
     
     
     public Cuenta(String numeroCuenta, Date fechaApertura, int saldo, String estado, int cliente_id) {

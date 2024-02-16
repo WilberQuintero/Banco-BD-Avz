@@ -18,6 +18,12 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(int usuario_id, String contra, String nombreUsusario) {
+        this.usuario_id = usuario_id;
+        this.contra = contra;
+        this.nombreUsusario = nombreUsusario;
+    }
+    
     public Usuario(String contra, String nombreUsusario) {
         this.contra = contra;
         this.nombreUsusario = nombreUsusario;
