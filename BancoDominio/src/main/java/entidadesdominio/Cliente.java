@@ -2,7 +2,7 @@
 package entidadesdominio;
 
 import java.util.Date;
-import java.util.Objects;
+
 
 /**
  *
@@ -96,9 +96,5 @@ public class Cliente {
             
     }
 
-    @Override
-    public String toString() {
-        return "Cliente{" + "cliente_id=" + cliente_id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", fechaNac=" + fechaNac + ", usuario_id=" + usuario_id + ", direccion_id=" + direccion_id + '}';
-    }
-   
+
 }    
