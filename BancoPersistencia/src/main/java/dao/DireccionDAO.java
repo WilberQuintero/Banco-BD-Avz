@@ -3,6 +3,7 @@ package dao;
 
 import ConexionBD.IConexionBD;
 import Excepciones.PersistenciaException;
+import dto.DireccionDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,7 +33,7 @@ public class DireccionDAO implements IDireccionDAO{
     
 
     @Override
-    public Direccion agregarDireccion(Direccion direccion) throws PersistenciaException {
+    public Direccion agregarDireccion(DireccionDTO direccion) throws PersistenciaException {
         
         String codigoSQL = "INSERT INTO DIRECCIONES (calle, colonia, numero) VALUES (?,?,?)";
 

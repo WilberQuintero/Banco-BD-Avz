@@ -5,25 +5,22 @@
     <artifactId>BancoPresentacion</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
- HASTA-EL-MOMENTO
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>BancoPersistencia</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>BancoDominio</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
+            <artifactId>BancoNegocio</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
         <exec.mainClass>com.mycompany.bancopresentacion.BancoPresentacion</exec.mainClass>
     </properties>
 </project>
