@@ -1,8 +1,11 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package entidadesdominio;
 
 import java.util.Date;
-
+import java.util.Objects;
 
 /**
  *
@@ -75,5 +78,8 @@ public class Transferencia {
         this.cuenta_id = cuenta_id;
     }
 
-  
+    @Override
+    public String toString() {
+        return "Transferencia{" + "transaccion_id=" + transaccion_id + ", cuentaDestino=" + cuentaDestino + ", monto=" + monto + ", fecha=" + fecha + ", cuenta_id=" + cuenta_id + '}';
+    }
 }
