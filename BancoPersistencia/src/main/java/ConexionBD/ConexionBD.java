@@ -11,9 +11,8 @@ import java.util.logging.Logger;
  *
  * @author Wilber
  */
-public class ConexionBD implements IConexionBD{
-    
-     private final String cadenaConexion;
+public class ConexionBD implements IConexionBD{ 
+    private final String cadenaConexion;
     private final String usuario;
     private final String contra;
     private static final Logger LOG = Logger.getLogger(ConexionBD.class.getName());
