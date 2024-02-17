@@ -8,7 +8,6 @@ import java.util.Date;
  * @author Usuario
  */
 public class CuentaDTO {
-    private int cuenta_id;
     private String numeroCuenta;
     private Date fechaApertura;
     private int saldo;
@@ -26,13 +25,6 @@ public class CuentaDTO {
         this.cliente_id = cliente_id;
     }
 
-    public int getCuenta_id() {
-        return cuenta_id;
-    }
-
-    public void setCuenta_id(int cuenta_id) {
-        this.cuenta_id = cuenta_id;
-    }
 
     public String getNumeroCuenta() {
         return numeroCuenta;

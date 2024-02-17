@@ -8,7 +8,6 @@ import java.util.Date;
  * @author Usuario
  */
 public class RetiroSinCuentaDTO {
-    private int transaccion_id;
     private String folio;
     private int monto;
     private String contra;
@@ -23,13 +22,6 @@ public class RetiroSinCuentaDTO {
         this.cliente_id = cliente_id;
     }
 
-    public int getTransaccion_id() {
-        return transaccion_id;
-    }
-
-    public void setTransaccion_id(int transaccion_id) {
-        this.transaccion_id = transaccion_id;
-    }
 
     public Date getFecha() {
         return fecha;

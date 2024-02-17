@@ -6,7 +6,6 @@ package dto;
  * @author Usuario
  */
 public class UsuarioDTO {
-    private int usuario_id;
     private String contra;
     private String nombreUsusario;
 
@@ -18,14 +17,7 @@ public class UsuarioDTO {
         this.nombreUsusario = nombreUsusario;
     }
 
-    public int getUsuario_id() {
-        return usuario_id;
-    }
-
-    public void setUsuario_id(int usuario_id) {
-        this.usuario_id = usuario_id;
-    }
-
+   
     public String getContra() {
         return contra;
     }

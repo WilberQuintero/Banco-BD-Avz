@@ -60,14 +60,14 @@ public class UsuarioDAO implements IUsuarioDAO{
     }
 
     @Override
-    public Usuario consultarUsuario(int usuario_id) throws PersistenciaException {
+    public Usuario consultarUsuario(Usuario usuario, int id) throws PersistenciaException {
         String codigoSQL = "SELECT * FROM usuarios WHERE id = (?)";
-        String codigoSQL2 = String.format("select * from usuarios where usuario_id = %d", usuario_id);
+        String codigoSQL2 = String.format("select * from usuarios where usuario_id = %d", id);
 
         try (Connection conexion = this.conexionBD.crearConexion();
              PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
 
-            comandoSQL.setInt(1, usuario_id);
+            comandoSQL.setInt(1, id);
             ResultSet resultado = comandoSQL.executeQuery();
           
             resultado.next();
