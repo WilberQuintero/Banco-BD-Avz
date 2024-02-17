@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface ITransferenciaDAO {
     
-        public Transferencia agregarDireccion(Transferencia transferencia) throws PersistenciaException;
+        public Transferencia agregarTransferencia(Transferencia transferencia) throws PersistenciaException;
         public Transferencia consultarTransferencia(int id) throws PersistenciaException;
         public List<Transferencia> consultarTodasTransferencia() throws PersistenciaException;
 

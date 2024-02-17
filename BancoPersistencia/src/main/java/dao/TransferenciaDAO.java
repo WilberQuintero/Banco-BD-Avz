@@ -30,7 +30,7 @@ public class TransferenciaDAO implements ITransferenciaDAO{
 
     
     @Override
-    public Transferencia agregarDireccion(Transferencia transferencia) throws PersistenciaException {
+    public Transferencia agregarTransferencia(Transferencia transferencia) throws PersistenciaException {
 
         String codigoSQL = "INSERT INTO TRANSFERENCIAS (cuentaDestino, monto, fecha, cuenta_id) VALUES (?,?,?)";
         

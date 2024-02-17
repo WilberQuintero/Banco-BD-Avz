@@ -2,6 +2,7 @@
 package dao;
 
 import Excepciones.PersistenciaException;
+import dto.DireccionDTO;
 import entidadesdominio.Direccion;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface IDireccionDAO {
     
-    public Direccion agregarDireccion(Direccion direccion) throws PersistenciaException;
+    public Direccion agregarDireccion(DireccionDTO direccion) throws PersistenciaException;
     public Direccion actualizarDireccion(Direccion direccion) throws PersistenciaException;
     public Direccion consultarDireccion(int id) throws PersistenciaException;
     public List<Direccion> consultarTodasDirecciones() throws PersistenciaException;
