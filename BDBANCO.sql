@@ -16,7 +16,7 @@ numero varchar (100) not null
 create table Usuarios (
 usuario_id int primary key auto_increment,
 nombreUsuario varchar (30) not null,
-contra varchar (16) not null
+contra varchar (500) not null
 );
 
 
@@ -65,6 +65,6 @@ foreign key (cliente_id) references Clientes (cliente_id)
 
 
 
--- insert into cuentas () values();
+insert into cuentas () values();
 -- drop database avance1bd;
 
