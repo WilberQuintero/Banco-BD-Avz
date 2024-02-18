@@ -1,4 +1,7 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package Formularios;
 
 import ConexionBD.ConexionBD;
@@ -19,8 +22,6 @@ public class FrmRegistroDeCuenta extends javax.swing.JFrame {
      */
     public FrmRegistroDeCuenta() throws PersistenciaException {
         initComponents();
-        //Hace que la ventana aparezca en medio
-        setLocationRelativeTo(null);
         
         lblNombreUsuario.setText(lblNombreUsuario.getText() + " " + con.consultarUsuarioMasNuevo().getNombreUsusario());
         lblFechaCreacion.setText(lblFechaCreacion.getText() + " " + con.consultarCuentaMasNueva().getFechaApertura());
@@ -37,10 +38,9 @@ public class FrmRegistroDeCuenta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblNombreUsuario1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblNombreUsuario = new javax.swing.JLabel();
+        lblNombreUsuario1 = new javax.swing.JLabel();
         lblNumeroCuenta = new javax.swing.JLabel();
         lblFechaCreacion = new javax.swing.JLabel();
         lblSaldo = new javax.swing.JLabel();
@@ -49,27 +49,17 @@ public class FrmRegistroDeCuenta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro de cuenta");
 
-        jPanel1.setBackground(new java.awt.Color(229, 246, 246));
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Usuario");
+        jLabel1.setText("Usuario:");
 
-        lblNombreUsuario.setForeground(new java.awt.Color(0, 0, 0));
         lblNombreUsuario.setText("Nombre de usuario:");
 
-        lblNumeroCuenta.setForeground(new java.awt.Color(0, 0, 0));
         lblNumeroCuenta.setText("Numero de cuenta:");
 
-        lblFechaCreacion.setForeground(new java.awt.Color(0, 0, 0));
         lblFechaCreacion.setText("Fecha de creacion:");
 
-        lblSaldo.setForeground(new java.awt.Color(0, 0, 0));
         lblSaldo.setText("Saldo:");
 
-        btnConfirmar.setBackground(new java.awt.Color(175, 193, 210));
-        btnConfirmar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnConfirmar.setForeground(new java.awt.Color(0, 0, 0));
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,64 +67,47 @@ public class FrmRegistroDeCuenta extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(45, 45, 45)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblNumeroCuenta)
-                                .addComponent(lblNombreUsuario)
-                                .addComponent(lblFechaCreacion)
-                                .addComponent(lblSaldo)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(100, 100, 100)
-                            .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(125, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1)
-                .addGap(27, 27, 27)
-                .addComponent(lblNombreUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblNumeroCuenta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblFechaCreacion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblSaldo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(337, 337, 337)
+                .addComponent(lblNombreUsuario1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNombreUsuario1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNombreUsuario)
+                    .addComponent(lblNumeroCuenta)
+                    .addComponent(lblFechaCreacion)
+                    .addComponent(lblSaldo)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(143, 143, 143))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(134, 134, 134)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
+                .addGap(33, 33, 33)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblNombreUsuario1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(17, 17, 17)
+                .addComponent(lblNombreUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNumeroCuenta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFechaCreacion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSaldo)
+                .addGap(40, 40, 40)
+                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -156,7 +129,6 @@ public class FrmRegistroDeCuenta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblFechaCreacion;
     private javax.swing.JLabel lblNombreUsuario;
     private javax.swing.JLabel lblNombreUsuario1;
