@@ -8,6 +8,7 @@ dao\RetiroSinCuentaDAO.class
 Excepciones\PersistenciaException.class
 dao\ICuentaDAO.class
 dao\DireccionDAO.class
+Pruebas.class
 dao\IClienteDAO.class
 dao\IUsuarioDAO.class
 dao\CuentaDAO.class

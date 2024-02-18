@@ -12,7 +12,7 @@ public class UsuarioDTO {
     public UsuarioDTO() {
     }
     
-    public UsuarioDTO(String contra, String nombreUsusario) {
+    public UsuarioDTO(String nombreUsusario, String contra) {
         this.contra = contra;
         this.nombreUsusario = nombreUsusario;
     }

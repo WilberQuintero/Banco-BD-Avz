@@ -20,6 +20,7 @@ import dto.ClienteDTO;
 import dto.CuentaDTO;
 import dto.DireccionDTO;
 import dto.RetiroSinCuentaDTO;
+import dto.TransferenciaDTO;
 import dto.UsuarioDTO;
 import entidadesdominio.Cliente;
 import entidadesdominio.Cuenta;
@@ -141,13 +142,62 @@ public class ControladorPersistencia implements IControladorPersistencia{
          return usuarioAgregado;
         }
        
-     public Usuario consultarUsuario (Usuario usuario, int id) throws PersistenciaException {
-         Usuario usuarioConsultado = this.usuarioDAO.consultarUsuario(usuario, id);
+     public Usuario consultarUsuario (int id) throws PersistenciaException {
+         Usuario usuarioConsultado = this.usuarioDAO.consultarUsuario(id);
          return usuarioConsultado;
      }
      
      public List<Usuario> consultarTodosUsuarios() throws PersistenciaException {
          return this.usuarioDAO.consultarTodosUsuarios();
      }
+     
+     public int consultarIdCliente(ClienteDTO cliente)throws PersistenciaException{
+         return this.clienteDAO.consultarIdCliente(cliente);
+     }
+     
+     public int consultarIdUsuario(UsuarioDTO usuario)throws PersistenciaException{
+         return this.usuarioDAO.consultarIdUsuario(usuario);
+     }
+     
+     public int consultarIdCuenta(CuentaDTO cuenta)throws PersistenciaException{
+         return this.cuentaDAO.consultarIdCuenta(cuenta);
+     }
+     
+     public int consultarIdDireccion(DireccionDTO direccion)throws PersistenciaException{
+         return this.direccionDAO.consultarIdDireccion(direccion);
+     }
+     
+     public int consultarIdRetiroSC(RetiroSinCuentaDTO retiro)throws PersistenciaException{
+         return this.retiroDAO.consultarIdRetiro(retiro);
+     }
+     
+     public int consultarIdTransferencia(TransferenciaDTO transferencia)throws PersistenciaException{
+         return this.transferenciaDAO.consultarIdTransferencia(transferencia);
+     }
+     
+     public Cliente consultarClienteMasNuevo () throws PersistenciaException{
+         return this.clienteDAO.consultarClienteMasNuevo();
+     }
+     
+     public Direccion consultarDireccionMasNueva () throws PersistenciaException{
+         return this.direccionDAO.consultarDireccionMasNueva();
+     }
+     
+     public Usuario consultarUsuarioMasNuevo () throws PersistenciaException{
+         return this.usuarioDAO.consultarUsuarioMasNuevo();
+     }
+     
+     public Transferencia consultarTransferenciaMasNueva () throws PersistenciaException{
+         return this.transferenciaDAO.consultarTransferenciaMasNueva();
+     }
+     
+     public RetiroSinCuenta consultarRetiroMasNuevo () throws PersistenciaException{
+         return this.retiroDAO.consultarRetiroMasNuevo();
+     }
+     
+     public Cuenta consultarCuentaMasNueva () throws PersistenciaException{
+         return this.cuentaDAO.consutarCuentaMasNueva();
+     }
+     
     
 }

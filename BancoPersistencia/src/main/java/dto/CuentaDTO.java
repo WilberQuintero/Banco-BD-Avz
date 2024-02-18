@@ -1,7 +1,7 @@
 
 package dto;
 
-import java.util.Date;
+
 
 /**
  *
@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class CuentaDTO {
     private String numeroCuenta;
-    private Date fechaApertura;
+    private String fechaApertura;
     private int saldo;
     private String estado;
     private int cliente_id;
@@ -17,7 +17,13 @@ public class CuentaDTO {
     public CuentaDTO() {
     }
 
-    public CuentaDTO(String numeroCuenta, Date fechaApertura, int saldo, String estado, int cliente_id) {
+    public CuentaDTO(int cliente_id) {
+        this.cliente_id = cliente_id;
+    }
+    
+    
+
+    public CuentaDTO(String numeroCuenta, String fechaApertura, int saldo, String estado, int cliente_id) {
         this.numeroCuenta = numeroCuenta;
         this.fechaApertura = fechaApertura;
         this.saldo = saldo;
@@ -34,11 +40,11 @@ public class CuentaDTO {
         this.numeroCuenta = numeroCuenta;
     }
 
-    public Date getFechaApertura() {
+    public String getFechaApertura() {
         return fechaApertura;
     }
 
-    public void setFechaApertura(Date fechaApertura) {
+    public void setFechaApertura(String fechaApertura) {
         this.fechaApertura = fechaApertura;
     }
 

@@ -4,7 +4,6 @@
  */
 package entidadesdominio;
 
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -13,15 +12,15 @@ import java.util.Objects;
  */
 public class Transferencia {
     private int transaccion_id;
-    private int cuentaDestino;
+    private String cuentaDestino;
      private int monto;
-    private Date fecha;
+    private String fecha;
     private int cuenta_id;
 
     public Transferencia() {
     }
 
-    public Transferencia(int cuentaDestino, int monto, Date fecha, int cuenta_id) {
+    public Transferencia(String cuentaDestino, int monto, String fecha, int cuenta_id) {
         this.cuentaDestino = cuentaDestino;
         this.monto = monto;
         this.fecha = fecha;
@@ -30,7 +29,7 @@ public class Transferencia {
 
 
 
-    public Transferencia(int transaccion_id, int cuentaDestino, int monto, Date fecha, int cuenta_id) {
+    public Transferencia(int transaccion_id, String cuentaDestino, int monto, String fecha, int cuenta_id) {
         this.transaccion_id = transaccion_id;
         this.cuentaDestino = cuentaDestino;
         this.monto = monto;
@@ -46,11 +45,11 @@ public class Transferencia {
         this.transaccion_id = transaccion_id;
     }
 
-    public int getCuentaDestino() {
+    public String getCuentaDestino() {
         return cuentaDestino;
     }
 
-    public void setCuentaDestino(int cuentaDestino) {
+    public void setCuentaDestino(String cuentaDestino) {
         this.cuentaDestino = cuentaDestino;
     }
 
@@ -62,11 +61,11 @@ public class Transferencia {
         this.monto = monto;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

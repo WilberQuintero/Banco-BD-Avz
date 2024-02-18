@@ -3,9 +3,9 @@ package dao;
 
 import ConexionBD.IConexionBD;
 import Excepciones.PersistenciaException;
+import dto.TransferenciaDTO;
 import entidadesdominio.Transferencia;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -37,9 +37,9 @@ public class TransferenciaDAO implements ITransferenciaDAO{
           try (    Connection conexion = this.conexionBD.crearConexion(); // establecemos la conexion con la bd
                  PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);) {
               
-            comandoSQL.setInt(1,transferencia.getCuentaDestino());
+            comandoSQL.setString(1,transferencia.getCuentaDestino());
             comandoSQL.setInt(2, transferencia.getMonto());
-            comandoSQL.setDate(4, (Date) transferencia.getFecha());
+            comandoSQL.setString(4,  transferencia.getFecha());
             comandoSQL.setInt(4,transferencia.getCuenta_id());
         
               int registros = comandoSQL.executeUpdate();
@@ -70,28 +70,30 @@ public class TransferenciaDAO implements ITransferenciaDAO{
     public Transferencia consultarTransferencia(int id) throws PersistenciaException {
    
         
-            String codigoSQL = "SELECT * FROM DIRECCIONES WHERE id=?";
+            String codigoSQL = "SELECT * FROM transferencias WHERE transaccion_id = ?";
 
-             try (Connection conexion = this.conexionBD.crearConexion();
+        try (Connection conexion = conexionBD.crearConexion(); 
                 PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
 
             comandoSQL.setInt(1, id);
-            ResultSet registro = comandoSQL.executeQuery();
-
-            registro.next();
-
-            Transferencia transferenciaConsultada = new Transferencia(
-                    registro.getInt(1),
-                    registro.getInt(2),
-                    registro.getDate(3),
-                    registro.getInt(4)
-
-            );
-
-            return transferenciaConsultada;
+            // Ejecutamos el comando
+            try (ResultSet res = comandoSQL.executeQuery()) {
+                if (res.next()) {
+                    Transferencia transferenciaConsultada = new Transferencia(
+                            res.getInt(1), 
+                            res.getString(2), 
+                            res.getInt(3), 
+                            res.getString(4), 
+                            res.getInt(5)
+                    );
+                    return transferenciaConsultada;
+                } else {
+                    throw new PersistenciaException("Transferencia no encontrada");
+                }
+            }
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Dirección no encontrada", e);
-            throw new PersistenciaException("No se ha encontrado ninguna dirección", e);
+            LOG.log(Level.SEVERE, "No se pudo consultar la transferencia", e);
+            throw new PersistenciaException("Error al consultar la transferencia", e);
         }    
     
     }
@@ -110,9 +112,9 @@ public class TransferenciaDAO implements ITransferenciaDAO{
 
            while (registro.next()) {
                 int transaccion_id = registro.getInt("transferencia_id");
-                int cuentaDestino = registro.getInt("cuentaDestino");
+                String cuentaDestino = registro.getString("cuentaDestino");
                 int monto = registro.getInt("monto");
-                Date fecha = registro.getDate("fecha");
+                String fecha = registro.getString("fecha");
                 int cuenta_id = registro.getInt("cuenta_id");
 
 
@@ -128,6 +130,64 @@ public class TransferenciaDAO implements ITransferenciaDAO{
             throw new PersistenciaException("No se pudieron consultar los clientes", e);
         }
      }
+    
+//    transaccion_id int primary key auto_increment,
+//cuentaDestino varchar (100) not null,
+//monto int not null,
+//fecha date not null,
+//cuenta_id int,
+    
+    @Override
+    public int consultarIdTransferencia(TransferenciaDTO transferencia) throws PersistenciaException {
+        String codigoSQL = "SELECT transaccion_id FROM transferencias WHERE cuentaDestino = (?) and monto = (?)"
+                + " and fecha = (?) and cuenta_id = (?)";
+
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            comandoSQL.setString(1, transferencia.getCuentaDestino());
+            comandoSQL.setInt(2, transferencia.getMonto());
+            comandoSQL.setString(3, transferencia.getFecha());
+            comandoSQL.setInt(4, transferencia.getCuenta_id());
+            ResultSet resultado = comandoSQL.executeQuery();
+          
+            resultado.next();
+
+           int idConsultada = resultado.getInt(1);
+            
+            
+            return idConsultada;
+            
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "cliente_id no encontrada", e);
+            throw new PersistenciaException("No se ha encontrado ningún cliente_id", e);
+        }
+    }
+
+    @Override
+    public Transferencia consultarTransferenciaMasNueva() throws PersistenciaException {
+        String codigoSQL = "SELECT * FROM transferencias order by transaccion_id desc limit 1 ";
+
+             try (Connection conexion = this.conexionBD.crearConexion();
+                PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            ResultSet registro = comandoSQL.executeQuery();
+
+            registro.next();
+
+            Transferencia transferenciaConsultada = new Transferencia(
+                    registro.getInt(1), 
+                    registro.getString(2), 
+                    registro.getInt(3), 
+                    registro.getString(4), 
+                    registro.getInt(6));
+
+            return transferenciaConsultada;
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Dirección no encontrada", e);
+            throw new PersistenciaException("No se ha encontrado ninguna dirección", e);
+        }
+    }
 
     }
     

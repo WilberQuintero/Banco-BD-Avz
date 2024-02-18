@@ -4,14 +4,19 @@
  */
 package Formularios;
 
+import Controlador.ControladorNegocio;
 import Excepciones.PersistenciaException;
+import com.toedter.calendar.JDateChooser;
 import dao.ClienteDAO;
 import dao.DireccionDAO;
 import dao.UsuarioDAO;
 import dto.ClienteDTO;
+import dto.CuentaDTO;
 import dto.DireccionDTO;
 import dto.UsuarioDTO;
 import entidadesdominio.Usuario;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,11 +26,46 @@ import java.util.logging.Logger;
  */
 public class FrmRegistro extends javax.swing.JFrame {
 
+    ControladorNegocio controlador = new ControladorNegocio();
+
     /**
      * Creates new form FmrRegistro
      */
     public FrmRegistro() {
         initComponents();
+        //Hace que la ventana aparezca en medio
+        setLocationRelativeTo(null);
+    }
+
+    public String convertirFecha(Date fecha) {
+        Date fechaActual = JCFechaNac.getDate();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        // Convertir la fecha a una cadena con el formato especificado
+        String fechaS = formatoFecha.format(fechaActual);
+
+        return fechaS;
+
+    }
+
+    public boolean validarContra(String contra, int longitudMaxima, int longitudMinima) {
+        // Verificar si la cadena es nula o vacía
+        if (contra == null || contra.isEmpty()) {
+            return false;
+        }
+        
+        // Verificar la longitud de la cadena
+        if (contra.length() > longitudMaxima || contra.length()< longitudMinima) {
+            return false;
+        }
+        
+        // Verificar que la contraseña exista en la base de datos
+        if (contra != contra) {
+            return false;
+        }
+        
+        
+        // La cadena cumple con los criterios de validación
+        return true;
     }
 
     /**
@@ -45,7 +85,6 @@ public class FrmRegistro extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtAP = new javax.swing.JTextField();
         txtAM = new javax.swing.JTextField();
-        PFContra = new javax.swing.JPasswordField();
         btnAceptar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -56,11 +95,16 @@ public class FrmRegistro extends javax.swing.JFrame {
         txtColonia = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         JCFechaNac = new com.toedter.calendar.JDateChooser();
+        txtNombreUsuario = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtContra = new javax.swing.JPasswordField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Datos Personales:");
 
@@ -74,6 +118,23 @@ public class FrmRegistro extends javax.swing.JFrame {
 
         txtNombre.setToolTipText("");
         txtNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
+        txtAP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAPKeyTyped(evt);
+            }
+        });
+
+        txtAM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAMKeyTyped(evt);
+            }
+        });
 
         btnAceptar.setText("Aceptar");
         btnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -99,35 +160,67 @@ public class FrmRegistro extends javax.swing.JFrame {
 
         txtCalle.setToolTipText("");
         txtCalle.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtCalle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCalleKeyTyped(evt);
+            }
+        });
+
+        txtNumeroCasa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroCasaKeyTyped(evt);
+            }
+        });
+
+        txtColonia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtColoniaKeyTyped(evt);
+            }
+        });
 
         jLabel9.setText("Fecha de nacimiento:");
+
+        txtNombreUsuario.setToolTipText("");
+        txtNombreUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtNombreUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreUsuarioKeyTyped(evt);
+            }
+        });
+
+        jLabel10.setText("Nombre de usuario:");
+
+        txtContra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContraActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel11.setText("No dejar ningún campo vacío");
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel12.setText("Registro");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(25, 25, 25)
                 .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addGap(23, 23, 23))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
+                        .addGap(56, 56, 56)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtAP, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,16 +240,38 @@ public class FrmRegistro extends javax.swing.JFrame {
                                     .addComponent(jLabel9))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(PFContra)
-                                    .addComponent(txtCalle, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                                    .addComponent(JCFechaNac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addContainerGap(101, Short.MAX_VALUE))
+                                    .addComponent(txtCalle)
+                                    .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(JCFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(197, 197, 197)
+                        .addComponent(jLabel11))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(228, 228, 228)
+                        .addComponent(jLabel12)))
+                .addGap(29, 99, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel12)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -169,15 +284,15 @@ public class FrmRegistro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(JCFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(PFContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -189,11 +304,13 @@ public class FrmRegistro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtColonia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addGap(42, 42, 42)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel11)
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnRegresar))
-                .addGap(16, 16, 16))
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -203,19 +320,47 @@ public class FrmRegistro extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
         try {
-        UsuarioDTO usuarioDTO = new UsuarioDTO(PFContra.getText(), txtNombre.getText());
-        UsuarioDAO usuarioDAO = null;
-        usuarioDAO.agregarUsuario(usuarioDTO);
-        
-        DireccionDTO direccionDTO = new DireccionDTO(txtCalle.getText(), txtColonia.getText(), txtNumeroCasa.getText());
-        DireccionDAO direccionDAO = null;
-        direccionDAO.agregarDireccion(direccionDTO);
-        
-        ClienteDTO clienteDTO = new ClienteDTO(txtNombre.getText(), txtAP.getText(), txtAM.getText(), JCFechaNac.getDate(), 1, 1);
-        ClienteDAO clienteDAO = null;
-        clienteDAO.agregarCliente(clienteDTO);
-        
-            System.exit(WIDTH);
+            /*controlador.agregarClientePrimeraVez( 
+                    new DireccionDTO(txtCalle.getText(), txtColonia.getText(), 
+                            txtNumeroCasa.getText()), 
+                    new UsuarioDTO(txtNombreUsuario.getText(),txtContra.getText()),
+                    new ClienteDTO(txtNombre.getText(), txtAP.getText(), 
+                    txtAM.getText(), this.convertirFecha(JCFechaNac.getDate()),
+                    controlador.consultarIdUsuario(new UsuarioDTO(txtNombreUsuario.getText(), 
+                            txtContra.getText())),
+                    controlador.consultarIdDireccion(new DireccionDTO(txtCalle.getText(), 
+                            txtColonia.getText(), txtNumeroCasa.getText()))),
+                    new CuentaDTO(controlador.consultarIdCliente(new ClienteDTO(txtNombre.getText(),
+                            txtAP.getText(), txtAM.getText(), 
+                            this.convertirFecha(JCFechaNac.getDate()), 
+                            controlador.consultarIdUsuario(new UsuarioDTO(txtNombreUsuario.getText(), 
+                            txtContra.getText())),
+                    controlador.consultarIdDireccion(new DireccionDTO(txtCalle.getText(), 
+                            txtColonia.getText(), txtNumeroCasa.getText())))))
+            );*/
+            String contraEn = controlador.encriptar(txtContra.getText());
+            controlador.agregarDirecYUsuaPrimeraVez(new DireccionDTO(txtCalle.getText(), txtColonia.getText(),
+                    txtNumeroCasa.getText()),
+                    new UsuarioDTO(txtNombreUsuario.getText(), contraEn));
+
+            controlador.agregarCliente(new ClienteDTO(txtNombre.getText(), txtAP.getText(),
+                    txtAM.getText(), this.convertirFecha(JCFechaNac.getDate()),
+                    controlador.consultarIdUsuario(new UsuarioDTO(txtNombreUsuario.getText(),
+                            contraEn)),
+                    controlador.consultarIdDireccion(new DireccionDTO(txtCalle.getText(),
+                            txtColonia.getText(), txtNumeroCasa.getText()))));
+
+            controlador.agregarCuenta(new CuentaDTO(controlador.consultarIdCliente(new ClienteDTO(txtNombre.getText(),
+                    txtAP.getText(), txtAM.getText(),
+                    this.convertirFecha(JCFechaNac.getDate()),
+                    controlador.consultarIdUsuario(new UsuarioDTO(txtNombreUsuario.getText(),
+                            contraEn)),
+                    controlador.consultarIdDireccion(new DireccionDTO(txtCalle.getText(),
+                            txtColonia.getText(), txtNumeroCasa.getText()))))));
+            FrmRegistroDeCuenta rcuenta = new FrmRegistroDeCuenta();
+            rcuenta.setVisible(true);
+            this.setVisible(false);
+
         } catch (PersistenciaException ex) {
             Logger.getLogger(FrmRegistro.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -226,17 +371,85 @@ public class FrmRegistro extends javax.swing.JFrame {
         FrmIniciarSesion inicio = new FrmIniciarSesion();
         inicio.setVisible(true);
         this.setVisible(false);
-        
+
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    
+    private void txtContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContraActionPerformed
+
+    private void txtNombreUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreUsuarioKeyTyped
+        char c = evt.getKeyChar();
+
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
+            evt.consume();
+        }
+        //ESTE METODO VALIDA PARA QUE SOLO SE PUEDAN USAR LETRAS
+    }//GEN-LAST:event_txtNombreUsuarioKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        char c = evt.getKeyChar();
+
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
+            evt.consume();
+        }
+        //ESTE METODO VALIDA PARA QUE SOLO SE PUEDAN USAR LETRAS
+     }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtAPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAPKeyTyped
+        char c = evt.getKeyChar();
+
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
+            evt.consume();
+        }
+        //ESTE METODO VALIDA PARA QUE SOLO SE PUEDAN USAR LETRAS
+    }//GEN-LAST:event_txtAPKeyTyped
+
+    private void txtAMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAMKeyTyped
+        char c = evt.getKeyChar();
+
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
+            evt.consume();
+        }
+        //ESTE METODO VALIDA PARA QUE SOLO SE PUEDAN USAR LETRAS
+    }//GEN-LAST:event_txtAMKeyTyped
+
+    private void txtCalleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCalleKeyTyped
+        char c = evt.getKeyChar();
+
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c < '0' || c > '9')) {
+            evt.consume();
+        }
+        //ESTE METODO VALIDA PARA QUE SOLO SE PUEDAN USAR LETRAS Y NUMEROS
+    }//GEN-LAST:event_txtCalleKeyTyped
+
+    private void txtNumeroCasaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroCasaKeyTyped
+        char c = evt.getKeyChar();
+        
+        if ((c < '0' || c > '9')) {
+            evt.consume();
+    }
+        //ESTE METODO VALIDA PARA QUE SOLO SE PUEDAN USAR NUMEROS
+    }//GEN-LAST:event_txtNumeroCasaKeyTyped
+
+    private void txtColoniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColoniaKeyTyped
+        char c = evt.getKeyChar();
+
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c < '0' || c > '9')) {
+            evt.consume();
+        }
+        //ESTE METODO VALIDA PARA QUE SOLO SE PUEDAN USAR LETRAS Y NUMEROS
+    }//GEN-LAST:event_txtColoniaKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser JCFechaNac;
-    private javax.swing.JPasswordField PFContra;
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -249,7 +462,9 @@ public class FrmRegistro extends javax.swing.JFrame {
     private javax.swing.JTextField txtAP;
     private javax.swing.JTextField txtCalle;
     private javax.swing.JTextField txtColonia;
+    private javax.swing.JPasswordField txtContra;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombreUsuario;
     private javax.swing.JTextField txtNumeroCasa;
     // End of variables declaration//GEN-END:variables
 }
