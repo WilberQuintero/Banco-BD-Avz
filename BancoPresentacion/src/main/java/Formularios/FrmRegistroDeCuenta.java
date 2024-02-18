@@ -4,19 +4,29 @@
  */
 package Formularios;
 
+import ConexionBD.ConexionBD;
+import Controlador.ControladorNegocio;
+import Excepciones.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Usuario
  */
 public class FrmRegistroDeCuenta extends javax.swing.JFrame {
+    ControladorNegocio con = new ControladorNegocio();
 
     /**
      * Creates new form FrmRegistroDeCuenta
      */
-    public FrmRegistroDeCuenta() {
+    public FrmRegistroDeCuenta() throws PersistenciaException {
         initComponents();
         
-        lblNombreUsuario.setText(lblNombreUsuario.getText() + " JoseTorres");
+        lblNombreUsuario.setText(lblNombreUsuario.getText() + " " + con.consultarUsuarioMasNuevo().getNombreUsusario());
+        lblFechaCreacion.setText(lblFechaCreacion.getText() + " " + con.consultarCuentaMasNueva().getFechaApertura());
+        lblNumeroCuenta.setText(lblNumeroCuenta.getText() + " " + con.consultarCuentaMasNueva().getNumeroCuenta());
+        lblSaldo.setText(lblSaldo.getText() + " $" + con.consultarCuentaMasNueva().getSaldo());
     }
 
     /**
@@ -30,42 +40,86 @@ public class FrmRegistroDeCuenta extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         lblNombreUsuario = new javax.swing.JLabel();
+        lblNombreUsuario1 = new javax.swing.JLabel();
+        lblNumeroCuenta = new javax.swing.JLabel();
+        lblFechaCreacion = new javax.swing.JLabel();
+        lblSaldo = new javax.swing.JLabel();
+        btnConfirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro de cuenta");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Usuario:");
 
         lblNombreUsuario.setText("Nombre de usuario:");
+
+        lblNumeroCuenta.setText("Numero de cuenta:");
+
+        lblFechaCreacion.setText("Fecha de creacion:");
+
+        lblSaldo.setText("Saldo:");
+
+        btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(337, 337, 337)
+                .addComponent(lblNombreUsuario1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(222, 222, 222)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(lblNombreUsuario)))
-                .addContainerGap(237, Short.MAX_VALUE))
+                    .addComponent(lblNombreUsuario)
+                    .addComponent(lblNumeroCuenta)
+                    .addComponent(lblFechaCreacion)
+                    .addComponent(lblSaldo)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(143, 143, 143))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(134, 134, 134)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblNombreUsuario1)
+                .addGap(17, 17, 17)
                 .addComponent(lblNombreUsuario)
-                .addContainerGap(270, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNumeroCuenta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFechaCreacion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSaldo)
+                .addGap(40, 40, 40)
+                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        // TODO add your handling code here:
+        FrmIniciarSesion inicio = new FrmIniciarSesion();
+        inicio.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -73,7 +127,12 @@ public class FrmRegistroDeCuenta extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblFechaCreacion;
     private javax.swing.JLabel lblNombreUsuario;
+    private javax.swing.JLabel lblNombreUsuario1;
+    private javax.swing.JLabel lblNumeroCuenta;
+    private javax.swing.JLabel lblSaldo;
     // End of variables declaration//GEN-END:variables
 }

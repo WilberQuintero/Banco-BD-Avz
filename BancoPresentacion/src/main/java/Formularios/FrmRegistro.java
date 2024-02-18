@@ -20,6 +20,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+
 /**
  *
  * @author Usuario
@@ -42,6 +44,27 @@ public class FrmRegistro extends javax.swing.JFrame {
             
             return fechaS;
         
+    }
+    
+    public boolean validarContra(String contra, int longitudMaxima, int longitudMinima) {
+        // Verificar si la cadena es nula o vacía
+        if (contra == null || contra.isEmpty()) {
+            return false;
+        }
+        
+        // Verificar la longitud de la cadena
+        if (contra.length() > longitudMaxima || contra.length()< longitudMinima) {
+            return false;
+        }
+        
+        // Verificar que la contraseña exista en la base de datos
+        if (contra != contra) {
+            return false;
+        }
+        
+        
+        // La cadena cumple con los criterios de validación
+        return true;
     }
 
     /**
@@ -73,7 +96,7 @@ public class FrmRegistro extends javax.swing.JFrame {
         JCFechaNac = new com.toedter.calendar.JDateChooser();
         txtNombreUsuario = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtContra = new javax.swing.JTextField();
+        txtContra = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro");
@@ -207,15 +230,15 @@ public class FrmRegistro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(JCFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -259,15 +282,15 @@ public class FrmRegistro extends javax.swing.JFrame {
                     controlador.consultarIdDireccion(new DireccionDTO(txtCalle.getText(), 
                             txtColonia.getText(), txtNumeroCasa.getText())))))
             );*/
-            
+            String contraEn = controlador.encriptar(txtContra.getText());
             controlador.agregarDirecYUsuaPrimeraVez(new DireccionDTO(txtCalle.getText(), txtColonia.getText(),
                     txtNumeroCasa.getText()),
-                    new UsuarioDTO(txtNombreUsuario.getText(),txtContra.getText()));
+                    new UsuarioDTO(txtNombreUsuario.getText(),contraEn));
             
             controlador.agregarCliente(new ClienteDTO(txtNombre.getText(), txtAP.getText(), 
                     txtAM.getText(), this.convertirFecha(JCFechaNac.getDate()),
                     controlador.consultarIdUsuario(new UsuarioDTO(txtNombreUsuario.getText(), 
-                            txtContra.getText())),
+                            contraEn)),
                     controlador.consultarIdDireccion(new DireccionDTO(txtCalle.getText(), 
                             txtColonia.getText(), txtNumeroCasa.getText()))));
             
@@ -275,7 +298,7 @@ public class FrmRegistro extends javax.swing.JFrame {
                             txtAP.getText(), txtAM.getText(), 
                             this.convertirFecha(JCFechaNac.getDate()), 
                             controlador.consultarIdUsuario(new UsuarioDTO(txtNombreUsuario.getText(), 
-                            txtContra.getText())),
+                            contraEn)),
                     controlador.consultarIdDireccion(new DireccionDTO(txtCalle.getText(), 
                             txtColonia.getText(), txtNumeroCasa.getText()))))));
         
@@ -320,7 +343,7 @@ public class FrmRegistro extends javax.swing.JFrame {
     private javax.swing.JTextField txtAP;
     private javax.swing.JTextField txtCalle;
     private javax.swing.JTextField txtColonia;
-    private javax.swing.JTextField txtContra;
+    private javax.swing.JPasswordField txtContra;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombreUsuario;
     private javax.swing.JTextField txtNumeroCasa;

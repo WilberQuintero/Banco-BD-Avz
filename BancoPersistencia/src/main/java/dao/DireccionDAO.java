@@ -100,28 +100,30 @@ public class DireccionDAO implements IDireccionDAO{
     @Override
      public Direccion consultarDireccion(int id) throws PersistenciaException {
   
-            String codigoSQL = "SELECT * FROM DIRECCIONES WHERE id=?";
+            String codigoSQL = "SELECT * FROM direcciones WHERE direccion_id = ?";
 
-             try (Connection conexion = this.conexionBD.crearConexion();
+        try (Connection conexion = conexionBD.crearConexion(); 
                 PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
 
             comandoSQL.setInt(1, id);
-            ResultSet resultado = comandoSQL.executeQuery();
-
-            resultado.next();
-
-            Direccion direccionConsultada = new Direccion(
-                    resultado.getString(1),
-                    resultado.getString(2),
-                    resultado.getString(3)
-
-            );
-
-            return direccionConsultada;
+            // Ejecutamos el comando
+            try (ResultSet res = comandoSQL.executeQuery()) {
+                if (res.next()) {
+                    Direccion cuentaConsultada = new Direccion(
+                            res.getInt(1), 
+                            res.getString(2), 
+                            res.getString(3), 
+                            res.getString(4)
+                    );
+                    return cuentaConsultada;
+                } else {
+                    throw new PersistenciaException("Direccion no encontrada");
+                }
+            }
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Dirección no encontrada", e);
-            throw new PersistenciaException("No se ha encontrado ninguna dirección", e);
-        }    
+            LOG.log(Level.SEVERE, "No se pudo consultar la direccion", e);
+            throw new PersistenciaException("Error al consultar la direccion", e);
+        }
     
     }
      
@@ -183,6 +185,31 @@ String codigoSQL = "SELECT * FROM DIRECCIONES";
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "direccion_id no encontrada", e);
             throw new PersistenciaException("No se ha encontrado ningún direccion_id", e);
+        }
+    }
+
+    @Override
+    public Direccion consultarDireccionMasNueva() throws PersistenciaException {
+        String codigoSQL = "SELECT * FROM direcciones order by direccion_id desc limit 1";
+
+             try (Connection conexion = this.conexionBD.crearConexion();
+                PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            ResultSet resultado = comandoSQL.executeQuery();
+
+            resultado.next();
+
+            Direccion direccionConsultada = new Direccion(
+                    resultado.getString(1),
+                    resultado.getString(2),
+                    resultado.getString(3)
+
+            );
+
+            return direccionConsultada;
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Dirección no encontrada", e);
+            throw new PersistenciaException("No se ha encontrado ninguna dirección", e);
         }
     }
      

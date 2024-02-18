@@ -103,30 +103,33 @@ public class ClienteDAO implements IClienteDAO{
     @Override
     public Cliente consultarCliente (int id) throws PersistenciaException {
 
-         String codigoSQL = "SELECT * FROM CLIENTES WHERE id = (?)";
+         String codigoSQL = "SELECT * FROM clientes WHERE cliente_id = ?";
+  
+    try (Connection conexion = conexionBD.crearConexion();
+         PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
 
-        try (Connection conexion = this.conexionBD.crearConexion();
-             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
-
-            comandoSQL.setInt(1, id);
-            ResultSet resultado = comandoSQL.executeQuery();
-          
-            resultado.next();
-
-           Cliente clienteConsultado = new Cliente(
-        resultado.getString(1),
-        resultado.getString(2),
-        resultado.getString(3),
-        resultado.getString(4),
-        resultado.getInt(5),
-        resultado.getInt(6)
-    );
-           
-     return clienteConsultado;
-        } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Cliente no encontrado", e);
-            throw new PersistenciaException("No se ha encontrado ningún cliente", e);
+        comandoSQL.setInt(1, id);
+        // Ejecutamos el comando
+        try (ResultSet resultado = comandoSQL.executeQuery()) {
+            if (resultado.next()) {
+                Cliente clienteConsultado = new Cliente(
+                        resultado.getInt(1), 
+                        resultado.getString(2), 
+                        resultado.getString(3), 
+                        resultado.getString(4), 
+                        resultado.getString(5), 
+                        resultado.getInt(6), 
+                        resultado.getInt(7)
+                );
+                return clienteConsultado;
+            } else {
+                throw new PersistenciaException("Cliente no encontrado");
+            }
         }
+    } catch (Exception e) {
+        LOG.log(Level.SEVERE, "No se pudo consultar el cliente", e);
+        throw new PersistenciaException("Error al consultar el cliente", e);
+    }
       }
     
     
@@ -198,6 +201,32 @@ public class ClienteDAO implements IClienteDAO{
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "cliente_id no encontrada", e);
             throw new PersistenciaException("No se ha encontrado ningún cliente_id", e);
+        }
+    }
+
+    @Override
+    public Cliente consultarClienteMasNuevo() throws PersistenciaException {
+        String codigoSQL = "SELECT * FROM CLIENTES order by cliente_id desc limit 1;";
+
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+            ResultSet resultado = comandoSQL.executeQuery();
+          
+            resultado.next();
+
+           Cliente clienteConsultado = new Cliente(
+        resultado.getString(1),
+        resultado.getString(2),
+        resultado.getString(3),
+        resultado.getString(4),
+        resultado.getInt(5),
+        resultado.getInt(6)
+    );
+           
+     return clienteConsultado;
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Cliente no encontrado", e);
+            throw new PersistenciaException("No se ha encontrado ningún cliente", e);
         }
     }
    

@@ -61,25 +61,27 @@ public class UsuarioDAO implements IUsuarioDAO{
 
     @Override
     public Usuario consultarUsuario(int id) throws PersistenciaException {
-        String codigoSQL = "SELECT * FROM usuarios WHERE id = (?)";
-        String codigoSQL2 = String.format("select * from usuarios where usuario_id = %d", id);
+        String codigoSQL = "SELECT * FROM usuarios WHERE usuario_id = ?";
 
-        try (Connection conexion = this.conexionBD.crearConexion();
-             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+        try (Connection conexion = conexionBD.crearConexion(); PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
 
             comandoSQL.setInt(1, id);
-            ResultSet resultado = comandoSQL.executeQuery();
-          
-            resultado.next();
-
-           Usuario usuarioConsultado = new Usuario(resultado.getInt(1), 
-                   resultado.getString(2), resultado.getNString(3)
-           );
-           
-     return usuarioConsultado;
+            // Ejecutamos el comando
+            try (ResultSet resultado = comandoSQL.executeQuery()) {
+                if (resultado.next()) {
+                    Usuario usuarioConsultado = new Usuario(
+                            resultado.getInt(1),
+                            resultado.getString(2),
+                            resultado.getString(3)
+                    );
+                    return usuarioConsultado;
+                } else {
+                    throw new PersistenciaException("Usuario no encontrado");
+                }
+            }
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Usuario no encontrada", e);
-            throw new PersistenciaException("No se ha encontrado ningún usuario", e);
+            LOG.log(Level.SEVERE, "No se pudo consultar el usuario", e);
+            throw new PersistenciaException("Error al consultar el usuario", e);
         }
     }
 
@@ -132,6 +134,28 @@ public class UsuarioDAO implements IUsuarioDAO{
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "usuario_id no encontrada", e);
             throw new PersistenciaException("No se ha encontrado ningún usuario_id", e);
+        }
+    }
+
+    @Override
+    public Usuario consultarUsuarioMasNuevo() throws PersistenciaException {
+        String codigoSQL = "SELECT * FROM usuarios order by usuario_id desc limit 1 ";
+
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            ResultSet resultado = comandoSQL.executeQuery();
+          
+            resultado.next();
+
+           Usuario usuarioConsultado = new Usuario(resultado.getInt(1), 
+                   resultado.getString(2), resultado.getString(3)
+           );
+           
+     return usuarioConsultado;
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Usuario no encontrada", e);
+            throw new PersistenciaException("No se ha encontrado ningún usuario", e);
         }
     }
     

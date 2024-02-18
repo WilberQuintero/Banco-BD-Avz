@@ -61,27 +61,31 @@ public class RetiroSinCuentaDAO implements IRetiroSinCuentaDAO{
 
     @Override
     public RetiroSinCuenta consultarRetiro(int transaccion_id) throws PersistenciaException {
-        String codigoSQL = "SELECT * FROM retirossincuenta WHERE id = (?)";
-        String codigoSQL2 = String.format("select * from retirossincuenta where cuenta_id = %d", transaccion_id);
+        String codigoSQL = "SELECT * FROM retirossincuenta WHERE transaccion_id = ?";
 
-        try (Connection conexion = this.conexionBD.crearConexion();
-             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+        try (Connection conexion = conexionBD.crearConexion(); 
+                PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
 
             comandoSQL.setInt(1, transaccion_id);
-            ResultSet resultado = comandoSQL.executeQuery();
-          
-            resultado.next();
-
-           RetiroSinCuenta retiroConsultado = new RetiroSinCuenta(resultado.getInt(1), 
-                   resultado.getString(2), resultado.getInt(3), 
-                   resultado.getString(4), resultado.getString(5), 
-                   resultado.getInt(6)
-           );
-           
-     return retiroConsultado;
+            // Ejecutamos el comando
+            try (ResultSet res = comandoSQL.executeQuery()) {
+                if (res.next()) {
+                    RetiroSinCuenta retiroConsultada = new RetiroSinCuenta(
+                            res.getInt(1), 
+                            res.getString(2), 
+                            res.getInt(3), 
+                            res.getString(4), 
+                            res.getString(5), 
+                            res.getInt(6)
+                    );
+                    return retiroConsultada;
+                } else {
+                    throw new PersistenciaException("Retiro no encontrada");
+                }
+            }
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Retiro no encontrada", e);
-            throw new PersistenciaException("No se ha encontrado ningún retiro", e);
+            LOG.log(Level.SEVERE, "No se pudo consultar el retiro", e);
+            throw new PersistenciaException("Error al consultar el retiro", e);
         }
     }
 
@@ -150,6 +154,30 @@ public class RetiroSinCuentaDAO implements IRetiroSinCuentaDAO{
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "transaccion_id no encontrada", e);
             throw new PersistenciaException("No se ha encontrado ningún transaccion_id", e);
+        }
+    }
+
+    @Override
+    public RetiroSinCuenta consultarRetiroMasNuevo() throws PersistenciaException {
+        String codigoSQL = "SELECT * FROM retirossincuenta order by transaccion_id desc limit 1 ";
+
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            ResultSet resultado = comandoSQL.executeQuery();
+          
+            resultado.next();
+
+           RetiroSinCuenta retiroConsultado = new RetiroSinCuenta(resultado.getInt(1), 
+                   resultado.getString(2), resultado.getInt(3), 
+                   resultado.getString(4), resultado.getString(5), 
+                   resultado.getInt(6)
+           );
+           
+     return retiroConsultado;
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Retiro no encontrada", e);
+            throw new PersistenciaException("No se ha encontrado ningún retiro", e);
         }
     }
     

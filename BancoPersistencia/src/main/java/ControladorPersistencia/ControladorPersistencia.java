@@ -175,5 +175,29 @@ public class ControladorPersistencia implements IControladorPersistencia{
          return this.transferenciaDAO.consultarIdTransferencia(transferencia);
      }
      
+     public Cliente consultarClienteMasNuevo () throws PersistenciaException{
+         return this.clienteDAO.consultarClienteMasNuevo();
+     }
+     
+     public Direccion consultarDireccionMasNueva () throws PersistenciaException{
+         return this.direccionDAO.consultarDireccionMasNueva();
+     }
+     
+     public Usuario consultarUsuarioMasNuevo () throws PersistenciaException{
+         return this.usuarioDAO.consultarUsuarioMasNuevo();
+     }
+     
+     public Transferencia consultarTransferenciaMasNueva () throws PersistenciaException{
+         return this.transferenciaDAO.consultarTransferenciaMasNueva();
+     }
+     
+     public RetiroSinCuenta consultarRetiroMasNuevo () throws PersistenciaException{
+         return this.retiroDAO.consultarRetiroMasNuevo();
+     }
+     
+     public Cuenta consultarCuentaMasNueva () throws PersistenciaException{
+         return this.cuentaDAO.consutarCuentaMasNueva();
+     }
+     
     
 }

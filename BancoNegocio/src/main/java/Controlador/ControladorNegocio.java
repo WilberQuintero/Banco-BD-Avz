@@ -5,6 +5,7 @@
 package Controlador;
 
 import ControladorPersistencia.ControladorPersistencia;
+import Encriptacion.Encriptador;
 import Excepciones.PersistenciaException;
 import dto.ClienteDTO;
 import dto.CuentaDTO;
@@ -145,8 +146,7 @@ public class ControladorNegocio {
         }
        
      public Usuario consultarUsuario (int id) throws PersistenciaException {
-         Usuario usuarioConsultado = null;
-         return usuarioConsultado;
+         return controlador.consultarUsuario(id);
      }
      
      public List<Usuario> consultarTodosUsuarios() throws PersistenciaException {
@@ -178,6 +178,39 @@ public class ControladorNegocio {
          
      }
      
+     public Cliente consultarClienteMasNuevo () throws PersistenciaException{
+         return controlador.consultarClienteMasNuevo();
+     }
+     
+     public Direccion consultarDireccionMasNueva () throws PersistenciaException{
+         return controlador.consultarDireccionMasNueva();
+     }
+     
+     public Usuario consultarUsuarioMasNuevo () throws PersistenciaException{
+         return controlador.consultarUsuarioMasNuevo();
+     }
+     
+     public Transferencia consultarTransferenciaMasNueva () throws PersistenciaException{
+         return controlador.consultarTransferenciaMasNueva();
+     }
+     
+     public RetiroSinCuenta consultarRetiroMasNuevo () throws PersistenciaException{
+         return controlador.consultarRetiroMasNuevo();
+     }
+     
+     public Cuenta consultarCuentaMasNueva () throws PersistenciaException{
+         return controlador.consultarCuentaMasNueva();
+     }
+     
+     public String encriptar(String contra){
+         Encriptador en = new Encriptador();
+         return en.getAES(contra);
+     }
+     
+     public String desEncriptar(String contraEncriptada){
+         Encriptador en = new Encriptador();
+         return en.etAESDecrypt(contraEncriptada);
+     }
      
     
 }

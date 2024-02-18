@@ -5,7 +5,11 @@
 package Formularios;
 
 import ConexionBD.ConexionBD;
+import Controlador.ControladorNegocio;
+import Excepciones.PersistenciaException;
 import com.mysql.cj.xdevapi.Statement;
+import dto.UsuarioDTO;
+import entidadesdominio.Usuario;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
@@ -14,6 +18,7 @@ import javax.swing.JOptionPane;
  * @author Wilber
  */
 public class FrmIniciarSesion extends javax.swing.JFrame {
+    ControladorNegocio con = new ControladorNegocio();
 
     /**
      * Creates new form IniciarSesion
@@ -130,14 +135,19 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
-        boolean usua = this.validarUsuario(txtUsuario.getText(), 30);
-        boolean con = this.validarContra(PFContra.getText(), 16, 6);
-        if(usua == true && con == true){
+        try{
+        boolean pasas = this.validarUsuarioYContra(txtUsuario.getText(), PFContra.getText());
+        
+        if(pasas == true){
            FrmCuentas cuentas = new FrmCuentas();
             cuentas.setVisible(true);
             this.setVisible(false); 
         }
         else{
+            JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña no validos :(");
+        }
+        }
+        catch(PersistenciaException ex){
             JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña no validos :(");
         }
         
@@ -181,11 +191,12 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
                 new FrmIniciarSesion().setVisible(true);
             }
         });
-        ConexionBD conexion = new  ConexionBD("jdbc:mysql://localhost:3306/Avance1BD", "root", "23939Ast");
+        ConexionBD conexion = new  ConexionBD("jdbc:mysql://localhost:3306/Avance1BD", "root", "23939Ast"); 
         
     }
     
-    public boolean validarUsuario(String usuario, int longitudMaxima) {
+    public boolean validarUsuario(String usuario, int longitudMaxima) throws PersistenciaException {
+        UsuarioDTO usua = new UsuarioDTO(usuario, "nada");
         // Verificar si la cadena es nula o vacía
         if (usuario == null || usuario.isEmpty()) {
             return false;
@@ -198,11 +209,6 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         
         // Verificar que la cadena contenga solo caracteres alfanuméricos
         if (!usuario.matches("[a-zA-Z0-9]+")) {
-            return false;
-        }
-        
-        //Verificar que el usuario exista en la base de datos
-        if(usuario != usuario){
             return false;
         }
         
@@ -222,13 +228,28 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
             return false;
         }
         
-        // Verificar que la contraseña exista en la base de datos
-        if (contra != contra) {
-            return false;
-        }
-        
         
         // La cadena cumple con los criterios de validación
+        return true;
+    }
+    
+    public boolean validarUsuarioYContra(String usuario, String contra) throws PersistenciaException{
+        Usuario us = new Usuario(con.consultarIdUsuario(
+                new UsuarioDTO(usuario, con.encriptar(contra))), usuario, contra);
+        if(!this.validarContra(contra, 16, 6)){
+        return false;
+    }
+        if(!this.validarUsuario(usuario, 30)){
+            return false;
+        }
+        if(!usuario.equals(us.getNombreUsusario()) && 
+                !contra.equals(con.desEncriptar(us.getContra()))){
+            return false;
+        }
+        /*UsuarioDTO us = new UsuarioDTO(txtUsuario.getText(), PFContra.getText());
+        if (!us.getNombreUsusario().equals(txtUsuario.getText()) && !us.getContra().equals(PFContra.getText())){
+            return false;
+        }*/
         return true;
     }
     
