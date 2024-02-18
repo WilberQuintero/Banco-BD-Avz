@@ -2,7 +2,7 @@ create database Avance1BD;                   -- Wilber Valdez Quintero  247180  
 
 use Avance1BD;
 
- -- drop database Avance1BD;
+-- drop database Avance1BD;
 
 
 create table Direcciones (
@@ -64,7 +64,7 @@ foreign key (cliente_id) references Clientes (cliente_id)
 );
 
 
-
 insert into cuentas () values();
 -- drop database avance1bd;
+
 
