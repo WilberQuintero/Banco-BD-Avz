@@ -255,7 +255,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
                 new FrmIniciarSesion().setVisible(true);
             }
         });
-        ConexionBD conexion = new  ConexionBD("jdbc:mysql://localhost:3306/Avance1BD", "root", "wilber"); 
+        ConexionBD conexion = new  ConexionBD("jdbc:mysql://localhost:3306/Avance1BD", "root", "23929Ast"); 
         
     }
     

@@ -69,6 +69,23 @@ public class FrmRegistro extends javax.swing.JFrame {
         // La cadena cumple con los criterios de validación
         return true;
     }
+    
+    public boolean validarCampos(String nombreUsua, String nombre, String aP, String fechaNac, String contra, 
+            String calle, String numCasa, String colonea){
+        if (nombreUsua == null || nombreUsua.isEmpty() && nombre == null || nombre.isEmpty() && 
+                aP == null || aP.isEmpty() && fechaNac == null || fechaNac.isEmpty() &&
+                contra == null || contra.isEmpty() && calle == null || calle.isEmpty() &&
+                numCasa == null || numCasa.isEmpty() && colonea == null || colonea.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Apellido Materno solo puede estar vacio...");
+            return false;
+        }
+        
+        if(contra.length() > 16 || contra.length() < 6){
+        JOptionPane.showMessageDialog(null, "La contraseña tiene que ser mayor a 6 y menor a 16.");
+        return false;
+    }
+        return true;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,31 +140,23 @@ public class FrmRegistro extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(229, 246, 246));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Datos Personales:");
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Registro");
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Calle:");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("No dejar ningún campo vacío");
 
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Numerode casa:");
+        jLabel7.setText("Numero de casa:");
 
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Nombre:");
 
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Colonia:");
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Apellido Paterno:");
 
         txtCalle.setBackground(new java.awt.Color(227, 236, 236));
@@ -159,7 +168,6 @@ public class FrmRegistro extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Apellido Materno:");
 
         txtNumeroCasa.setBackground(new java.awt.Color(227, 236, 236));
@@ -169,7 +177,6 @@ public class FrmRegistro extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Contraseña:");
 
         txtColonia.setBackground(new java.awt.Color(227, 236, 236));
@@ -188,7 +195,6 @@ public class FrmRegistro extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Fecha de nacimiento:");
 
         txtAP.setBackground(new java.awt.Color(227, 236, 236));
@@ -217,7 +223,6 @@ public class FrmRegistro extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Nombre de usuario:");
 
         txtContra.setBackground(new java.awt.Color(227, 236, 236));
@@ -234,7 +239,6 @@ public class FrmRegistro extends javax.swing.JFrame {
 
         btnAceptar.setBackground(new java.awt.Color(175, 193, 210));
         btnAceptar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAceptar.setForeground(new java.awt.Color(0, 0, 0));
         btnAceptar.setText("Aceptar");
         btnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -245,7 +249,6 @@ public class FrmRegistro extends javax.swing.JFrame {
 
         btnRegresar.setBackground(new java.awt.Color(175, 193, 210));
         btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
         btnRegresar.setText("Regresar");
         btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -255,7 +258,6 @@ public class FrmRegistro extends javax.swing.JFrame {
         });
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("*6 digitos o mas*");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -396,6 +398,10 @@ public class FrmRegistro extends javax.swing.JFrame {
         
 
         try {
+            
+            if(validarCampos(txtNombreUsuario.getText(), txtNombre.getText(), 
+                    txtAP.getText(), JCFechaNac.getDateFormatString(), txtContra.getText(), 
+                    txtCalle.getText(), txtNumeroCasa.getText(), txtColonia.getText()) == true){
           
             String contraEn = controlador.encriptar(txtContra.getText());
             controlador.agregarDirecYUsuaPrimeraVez(new DireccionDTO(txtCalle.getText(), txtColonia.getText(),
@@ -421,6 +427,7 @@ public class FrmRegistro extends javax.swing.JFrame {
             FrmRegistroDeCuenta rcuenta = new FrmRegistroDeCuenta();
             rcuenta.setVisible(true);
             this.setVisible(false);
+            }
 
         } catch (PersistenciaException ex) {
             Logger.getLogger(FrmRegistro.class.getName()).log(Level.SEVERE, null, ex);
@@ -570,6 +577,7 @@ public class FrmRegistro extends javax.swing.JFrame {
         evt.consume();
     
     }
+    
         //ESTE METODO VALIDA PARA QUE SOLO SE PUEDAN USAR LETRAS y NUMEROS
     }//GEN-LAST:event_txtColoniaKeyTyped
 
@@ -589,7 +597,7 @@ public class FrmRegistro extends javax.swing.JFrame {
         // Consumir el evento para evitar que el carácter se agregue
         evt.consume();
     
-    }     
+    }
            
            //ESTE METODO VALIDA PARA QUE ACEPTE DE 6 A 16 DIGITOS.
 

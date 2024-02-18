@@ -31,7 +31,7 @@ public class FrmCuentas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnPerfil = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        brnCrearCuenta = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
@@ -48,14 +48,19 @@ public class FrmCuentas extends javax.swing.JFrame {
         btnPerfil.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         btnPerfil.setForeground(new java.awt.Color(0, 0, 0));
         btnPerfil.setText("Perfil");
-
-        jButton1.setBackground(new java.awt.Color(175, 193, 210));
-        jButton1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Crear cuenta");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnPerfilActionPerformed(evt);
+            }
+        });
+
+        brnCrearCuenta.setBackground(new java.awt.Color(175, 193, 210));
+        brnCrearCuenta.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        brnCrearCuenta.setForeground(new java.awt.Color(0, 0, 0));
+        brnCrearCuenta.setText("Crear cuenta");
+        brnCrearCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brnCrearCuentaActionPerformed(evt);
             }
         });
 
@@ -63,6 +68,11 @@ public class FrmCuentas extends javax.swing.JFrame {
         btnSalir.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(0, 0, 0));
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(203, 218, 245));
 
@@ -85,7 +95,7 @@ public class FrmCuentas extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addComponent(btnSalir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(brnCrearCuenta)
                 .addGap(59, 59, 59))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(24, Short.MAX_VALUE)
@@ -108,7 +118,7 @@ public class FrmCuentas extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(brnCrearCuenta)
                     .addComponent(btnSalir))
                 .addGap(26, 26, 26))
         );
@@ -133,16 +143,27 @@ public class FrmCuentas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void brnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnCrearCuentaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_brnCrearCuentaActionPerformed
 
-    
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        FrmSaliraInicio salir = new FrmSaliraInicio();
+        salir.setVisible(true);
+        this.setVisible(false);    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
+        FrmPerfil perfil = new FrmPerfil();
+        perfil.setVisible(true);
+        this.setVisible(false);
+
+    }//GEN-LAST:event_btnPerfilActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton brnCrearCuenta;
     private javax.swing.JButton btnPerfil;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
