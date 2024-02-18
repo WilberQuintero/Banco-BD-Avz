@@ -1,7 +1,6 @@
 
 package entidadesdominio;
 
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -13,14 +12,14 @@ public class Cliente {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private Date fechaNac; 
+    private String fechaNac; 
     private int usuario_id;
     private int direccion_id;
 
     public Cliente() {
     }
 
-    public Cliente(int cliente_id, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNac, int usuario_id, int direccion_id) {
+    public Cliente(int cliente_id, String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNac, int usuario_id, int direccion_id) {
         this.cliente_id = cliente_id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -30,7 +29,7 @@ public class Cliente {
         this.direccion_id = direccion_id;
     }
     
-    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNac, int usuario_id, int direccion_id) {
+    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNac, int usuario_id, int direccion_id) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -71,11 +70,11 @@ public class Cliente {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public Date getFechaNac() {
+    public String getFechaNac() {
         return fechaNac;
     }
 
-    public void setFechaNac(Date fechaNac) {
+    public void setFechaNac(String fechaNac) {
         this.fechaNac = fechaNac;
     }
 

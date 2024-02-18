@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,7 +71,7 @@ public class CuentaDAO implements ICuentaDAO{
             resultado.next();
 
            Cuenta cuentaConsultada = new Cuenta(resultado.getInt(1), 
-                   resultado.getString(2), resultado.getDate(3), 
+                   resultado.getString(2), resultado.getString(3), 
                    resultado.getInt(4), resultado.getString(5), 
                    resultado.getInt(6)
            );
@@ -97,7 +96,7 @@ public class CuentaDAO implements ICuentaDAO{
            while (resultado.next()) {
                 int cuenta_id = resultado.getInt("cuenta_id");
                 String numeroCuenta = resultado.getString("numeroCuenta");
-                Date fechaApertura = resultado.getDate("fechaApertura");
+                String fechaApertura = resultado.getString("fechaApertura");
                 float saldo = resultado.getFloat("saldo");
                 String estado = resultado.getString("estado");
                 int cliente_id = resultado.getInt("cliente_id");
@@ -115,5 +114,39 @@ public class CuentaDAO implements ICuentaDAO{
             throw new PersistenciaException("No se pudieron consultar los clientes", e);
         }
     }
+
+//    cuenta_id int primary key auto_increment,
+//numeroCuenta varchar (16) not null unique,
+//fechaApertura date not null,
+//saldo decimal (18, 2) not null default 0,
+//estado enum ("Activa","Cancelada") not null default "Activa",
+//cliente_id int ,
     
+@Override
+    public int consultarIdCuenta(CuentaDTO cuenta) throws PersistenciaException {
+        String codigoSQL = "SELECT cuenta_id FROM cuentas WHERE numeroCuenta = (?) and fechaApertura = (?) and saldo = (?)"
+                + " and estado = (?) and cliente_id = (?)";
+
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            comandoSQL.setString(1, cuenta.getNumeroCuenta());
+            comandoSQL.setString(2, cuenta.getFechaApertura());
+            comandoSQL.setInt(3, cuenta.getSaldo());
+            comandoSQL.setString(4, cuenta.getEstado());
+            comandoSQL.setInt(5, cuenta.getCliente_id());
+            ResultSet resultado = comandoSQL.executeQuery();
+          
+            resultado.next();
+
+           int idConsultada = resultado.getInt(1);
+            
+            
+            return idConsultada;
+            
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "cuenta_id no encontrada", e);
+            throw new PersistenciaException("No se ha encontrado ningún cuenta_id", e);
+        }
+    }    
 }

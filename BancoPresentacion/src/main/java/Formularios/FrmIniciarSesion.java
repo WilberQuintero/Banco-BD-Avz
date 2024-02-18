@@ -5,6 +5,8 @@
 package Formularios;
 
 import ConexionBD.ConexionBD;
+import com.mysql.cj.xdevapi.Statement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -179,7 +181,8 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
                 new FrmIniciarSesion().setVisible(true);
             }
         });
-        ConexionBD conexion = new  ConexionBD("3306", "root", "23929Ast");
+        ConexionBD conexion = new  ConexionBD("jdbc:mysql://localhost:3306/Avance1BD", "root", "23939Ast");
+        
     }
     
     public boolean validarUsuario(String usuario, int longitudMaxima) {

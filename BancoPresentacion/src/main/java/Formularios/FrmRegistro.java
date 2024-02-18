@@ -4,6 +4,7 @@
  */
 package Formularios;
 
+import Controlador.ControladorNegocio;
 import Excepciones.PersistenciaException;
 import dao.ClienteDAO;
 import dao.DireccionDAO;
@@ -21,6 +22,7 @@ import java.util.logging.Logger;
  */
 public class FrmRegistro extends javax.swing.JFrame {
 
+    ControladorNegocio controlador = new ControladorNegocio();
     /**
      * Creates new form FmrRegistro
      */
@@ -45,7 +47,6 @@ public class FrmRegistro extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtAP = new javax.swing.JTextField();
         txtAM = new javax.swing.JTextField();
-        PFContra = new javax.swing.JPasswordField();
         btnAceptar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -56,6 +57,9 @@ public class FrmRegistro extends javax.swing.JFrame {
         txtColonia = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         JCFechaNac = new com.toedter.calendar.JDateChooser();
+        txtNombreUsuario = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtContra = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro");
@@ -102,6 +106,17 @@ public class FrmRegistro extends javax.swing.JFrame {
 
         jLabel9.setText("Fecha de nacimiento:");
 
+        txtNombreUsuario.setToolTipText("");
+        txtNombreUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        jLabel10.setText("Nombre de usuario:");
+
+        txtContra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,10 +140,6 @@ public class FrmRegistro extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtAP, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtAM, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -147,9 +158,18 @@ public class FrmRegistro extends javax.swing.JFrame {
                                     .addComponent(jLabel9))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(PFContra)
                                     .addComponent(txtCalle, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                                    .addComponent(JCFechaNac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(JCFechaNac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtContra)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(101, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -157,6 +177,10 @@ public class FrmRegistro extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addComponent(jLabel1)
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -176,7 +200,7 @@ public class FrmRegistro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(PFContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -189,7 +213,7 @@ public class FrmRegistro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtColonia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addGap(42, 42, 42)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnRegresar))
@@ -203,19 +227,21 @@ public class FrmRegistro extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
         try {
-        UsuarioDTO usuarioDTO = new UsuarioDTO(PFContra.getText(), txtNombre.getText());
-        UsuarioDAO usuarioDAO = null;
-        usuarioDAO.agregarUsuario(usuarioDTO);
+            DireccionDTO direccion = new DireccionDTO(txtCalle.getText(), txtColonia.getText(), txtNumeroCasa.getText());
+            controlador.agregarDireccion(direccion);
+            
+            UsuarioDTO usuario = new UsuarioDTO(txtNombreUsuario.getText(), txtContra.getText());
+            controlador.agregarUsuario(usuario);
+            
+            ClienteDTO cliente = new ClienteDTO(txtNombre.getText(), txtAP.getText(), 
+                    txtAM.getText(), JCFechaNac.getDateFormatString(),
+                    controlador.consultarIdUsuario(usuario), controlador.consultarIdDireccion(direccion));
+            controlador.agregarCliente(cliente);
         
-        DireccionDTO direccionDTO = new DireccionDTO(txtCalle.getText(), txtColonia.getText(), txtNumeroCasa.getText());
-        DireccionDAO direccionDAO = null;
-        direccionDAO.agregarDireccion(direccionDTO);
+        FrmRegistroDeCuenta rcuenta = new FrmRegistroDeCuenta();
+        rcuenta.setVisible(true);
+        this.setVisible(false);
         
-        ClienteDTO clienteDTO = new ClienteDTO(txtNombre.getText(), txtAP.getText(), txtAM.getText(), JCFechaNac.getDate(), 1, 1);
-        ClienteDAO clienteDAO = null;
-        clienteDAO.agregarCliente(clienteDTO);
-        
-            System.exit(WIDTH);
         } catch (PersistenciaException ex) {
             Logger.getLogger(FrmRegistro.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -229,14 +255,18 @@ public class FrmRegistro extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void txtContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContraActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser JCFechaNac;
-    private javax.swing.JPasswordField PFContra;
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -249,7 +279,9 @@ public class FrmRegistro extends javax.swing.JFrame {
     private javax.swing.JTextField txtAP;
     private javax.swing.JTextField txtCalle;
     private javax.swing.JTextField txtColonia;
+    private javax.swing.JTextField txtContra;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombreUsuario;
     private javax.swing.JTextField txtNumeroCasa;
     // End of variables declaration//GEN-END:variables
 }

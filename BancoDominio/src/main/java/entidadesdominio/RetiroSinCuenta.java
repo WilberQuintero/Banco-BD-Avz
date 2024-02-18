@@ -4,7 +4,6 @@
  */
 package entidadesdominio;
 
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -13,7 +12,7 @@ import java.util.Objects;
  */
 public class RetiroSinCuenta {
     private int transaccion_id;
-    private Date fecha;
+    private String fecha;
     private int monto;
     private String folio;
     private String contra;
@@ -22,7 +21,7 @@ public class RetiroSinCuenta {
     public RetiroSinCuenta() {
     }
 
-    public RetiroSinCuenta(int transaccion_id, String folio, int monto, String contra, Date fecha, int cliente_id) {
+    public RetiroSinCuenta(int transaccion_id, String folio, int monto, String contra, String fecha, int cliente_id) {
         this.transaccion_id = transaccion_id;
         this.fecha = fecha;
         this.monto = monto;
@@ -32,7 +31,7 @@ public class RetiroSinCuenta {
     }
 
     
-    public RetiroSinCuenta(String folio, int monto, String contra, Date fecha, int cliente_id) {
+    public RetiroSinCuenta(String folio, int monto, String contra, String fecha, int cliente_id) {
         this.fecha = fecha;
         this.monto = monto;
         this.folio = folio;
@@ -48,11 +47,11 @@ public class RetiroSinCuenta {
         this.transaccion_id = transaccion_id;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

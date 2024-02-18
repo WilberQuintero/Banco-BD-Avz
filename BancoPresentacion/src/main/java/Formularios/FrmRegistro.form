@@ -46,11 +46,6 @@
                               <Component id="txtAP" min="-2" pref="280" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtNombre" min="-2" pref="280" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtAM" min="-2" pref="280" max="-2" attributes="0"/>
@@ -73,9 +68,21 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="PFContra" max="32767" attributes="0"/>
                                   <Component id="txtCalle" pref="280" max="32767" attributes="0"/>
                                   <Component id="JCFechaNac" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtContra" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtNombreUsuario" min="-2" pref="280" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtNombre" min="-2" pref="280" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -90,6 +97,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtNombreUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -113,7 +125,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="PFContra" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtContra" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -130,7 +142,7 @@
                   <Component id="txtColonia" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnRegresar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -181,8 +193,6 @@
     <Component class="javax.swing.JTextField" name="txtAP">
     </Component>
     <Component class="javax.swing.JTextField" name="txtAM">
-    </Component>
-    <Component class="javax.swing.JPasswordField" name="PFContra">
     </Component>
     <Component class="javax.swing.JButton" name="btnAceptar">
       <Properties>
@@ -239,6 +249,24 @@
       </Properties>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="JCFechaNac">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtNombreUsuario">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Text Cursor"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel10">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nombre de usuario:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtContra">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtContraActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

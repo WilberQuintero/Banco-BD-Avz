@@ -155,6 +155,36 @@ String codigoSQL = "SELECT * FROM DIRECCIONES";
             throw new PersistenciaException("No se pudieron consultar los clientes", e);
         }
     }
+    
+//    direccion_id int primary key auto_increment,
+//calle varchar (100) not null,
+//colonia varchar (100) not null,
+//numero varchar (100) not null
+    
+    @Override
+    public int consultarIdDireccion(DireccionDTO direccion) throws PersistenciaException {
+        String codigoSQL = "SELECT direccion_id FROM direcciones WHERE calle= (?) and colonia = (?) and numero = (?)";
+
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            comandoSQL.setString(1, direccion.getCalle());
+            comandoSQL.setString(2, direccion.getColonia());
+            comandoSQL.setString(3, direccion.getNumero());
+            ResultSet resultado = comandoSQL.executeQuery();
+          
+            resultado.next();
+
+           int idConsultada = resultado.getInt(1);
+            
+            
+            return idConsultada;
+            
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "direccion_id no encontrada", e);
+            throw new PersistenciaException("No se ha encontrado ningún direccion_id", e);
+        }
+    }
      
 }
     

@@ -4,7 +4,7 @@
  */
 package entidadesdominio;
 
-import java.util.Date;
+
 import java.util.Objects;
 
 /**
@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Cuenta {
     private int cuenta_id;
     private String numeroCuenta;
-    private Date fechaApertura;
+    private String fechaApertura;
     private float saldo;
     private String estado;
     private int cliente_id;
@@ -22,7 +22,7 @@ public class Cuenta {
     public Cuenta() {
     }
 
-    public Cuenta(int cuenta_id, String numeroCuenta, Date fechaApertura, float saldo, String estado, int cliente_id) {
+    public Cuenta(int cuenta_id, String numeroCuenta, String fechaApertura, float saldo, String estado, int cliente_id) {
         this.cuenta_id = cuenta_id;
         this.numeroCuenta = numeroCuenta;
         this.fechaApertura = fechaApertura;
@@ -32,7 +32,7 @@ public class Cuenta {
     }
     
     
-    public Cuenta(String numeroCuenta, Date fechaApertura, float saldo, String estado, int cliente_id) {
+    public Cuenta(String numeroCuenta, String fechaApertura, float saldo, String estado, int cliente_id) {
         this.numeroCuenta = numeroCuenta;
         this.fechaApertura = fechaApertura;
         this.saldo = saldo;
@@ -56,11 +56,11 @@ public class Cuenta {
         this.numeroCuenta = numeroCuenta;
     }
 
-    public Date getFechaApertura() {
+    public String getFechaApertura() {
         return fechaApertura;
     }
 
-    public void setFechaApertura(Date fechaApertura) {
+    public void setFechaApertura(String fechaApertura) {
         this.fechaApertura = fechaApertura;
     }
 

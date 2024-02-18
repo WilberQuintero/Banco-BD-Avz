@@ -1,34 +1,32 @@
 
 package dto;
 
-import java.util.Date;
-
 /**
  *
  * @author Wilber
  */
 public class TransferenciaDTO {
     
-     private int cuentaDestino;
+     private String cuentaDestino;
      private int monto;
-     private Date fecha;
+     private String fecha;
      private int cuenta_id;
 
     public TransferenciaDTO() {
     }
 
-    public TransferenciaDTO(int cuentaDestino, int monto, Date fecha, int cuenta_id) {
+    public TransferenciaDTO(String cuentaDestino, int monto, String fecha, int cuenta_id) {
         this.cuentaDestino = cuentaDestino;
         this.monto = monto;
         this.fecha = fecha;
         this.cuenta_id = cuenta_id;
     }
 
-    public int getCuentaDestino() {
+    public String getCuentaDestino() {
         return cuentaDestino;
     }
 
-    public void setCuentaDestino(int cuentaDestino) {
+    public void setCuentaDestino(String cuentaDestino) {
         this.cuentaDestino = cuentaDestino;
     }
 
@@ -40,11 +38,11 @@ public class TransferenciaDTO {
         this.monto = monto;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

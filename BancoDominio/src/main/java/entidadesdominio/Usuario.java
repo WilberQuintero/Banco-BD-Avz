@@ -18,7 +18,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(int usuario_id, String contra, String nombreUsusario) {
+    public Usuario(int usuario_id, String nombreUsusario, String contra) {
         this.usuario_id = usuario_id;
         this.contra = contra;
         this.nombreUsusario = nombreUsusario;

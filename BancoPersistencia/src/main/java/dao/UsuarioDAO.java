@@ -60,7 +60,7 @@ public class UsuarioDAO implements IUsuarioDAO{
     }
 
     @Override
-    public Usuario consultarUsuario(Usuario usuario, int id) throws PersistenciaException {
+    public Usuario consultarUsuario(int id) throws PersistenciaException {
         String codigoSQL = "SELECT * FROM usuarios WHERE id = (?)";
         String codigoSQL2 = String.format("select * from usuarios where usuario_id = %d", id);
 
@@ -110,5 +110,31 @@ public class UsuarioDAO implements IUsuarioDAO{
             throw new PersistenciaException("No se pudieron consultar los usuarios", e);
         }
     }
+
+    @Override
+    public int consultarIdUsuario(UsuarioDTO usuario) throws PersistenciaException {
+        String codigoSQL = "SELECT usuario_id FROM usuarios WHERE nombreUsuario = (?) and contra = (?)";
+
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            comandoSQL.setString(1, usuario.getNombreUsusario());
+            comandoSQL.setString(2, usuario.getContra());
+            ResultSet resultado = comandoSQL.executeQuery();
+          
+            resultado.next();
+            
+            int idConsultada = resultado.getInt(1);
+            
+            
+            return idConsultada;
+            
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "usuario_id no encontrada", e);
+            throw new PersistenciaException("No se ha encontrado ningún usuario_id", e);
+        }
+    }
+    
+    
     
 }

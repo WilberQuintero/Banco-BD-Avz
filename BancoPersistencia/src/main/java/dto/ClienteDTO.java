@@ -1,7 +1,7 @@
 
 package dto;
 
-import java.util.Date;
+
 
 /**
  *
@@ -12,14 +12,14 @@ public class ClienteDTO {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private Date fechaNac; 
+    private String fechaNac; 
     private int usuario_id;
     private int direccion_id;
 
     public ClienteDTO() {
     }
 
-    public ClienteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNac, int usuario_id, int direccion_id) {
+    public ClienteDTO(String nombre, String apellidoPaterno, String apellidoMaterno, String fechaNac, int usuario_id, int direccion_id) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -52,11 +52,11 @@ public class ClienteDTO {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public Date getFechaNac() {
+    public String getFechaNac() {
         return fechaNac;
     }
 
-    public void setFechaNac(Date fechaNac) {
+    public void setFechaNac(String fechaNac) {
         this.fechaNac = fechaNac;
     }
 

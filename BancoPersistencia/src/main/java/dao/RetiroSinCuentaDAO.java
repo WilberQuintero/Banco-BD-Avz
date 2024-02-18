@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,7 +74,7 @@ public class RetiroSinCuentaDAO implements IRetiroSinCuentaDAO{
 
            RetiroSinCuenta retiroConsultado = new RetiroSinCuenta(resultado.getInt(1), 
                    resultado.getString(2), resultado.getInt(3), 
-                   resultado.getString(4), resultado.getDate(5), 
+                   resultado.getString(4), resultado.getString(5), 
                    resultado.getInt(6)
            );
            
@@ -101,7 +100,7 @@ public class RetiroSinCuentaDAO implements IRetiroSinCuentaDAO{
                 String folio = resultado.getString("folio");
                 int monto = resultado.getInt("monto");
                 String contra = resultado.getString("contra");
-                Date fecha = resultado.getDate("fecha");
+                String fecha = resultado.getString("fecha");
                 int cliente_id = resultado.getInt("cliente_id");
                 
 
@@ -115,6 +114,42 @@ public class RetiroSinCuentaDAO implements IRetiroSinCuentaDAO{
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "No se pudieron obtener los retiros", e);
             throw new PersistenciaException("No se pudieron consultar los retiros", e);
+        }
+    }
+    
+//    transaccion_id int primary key auto_increment,
+//folio varchar (100) not null,
+//monto int not null,
+//contra varchar (100) not null,
+//fecha date not null,
+//cliente_id int,
+    
+    @Override
+    public int consultarIdRetiro(RetiroSinCuentaDTO retiro) throws PersistenciaException {
+        String codigoSQL = "SELECT transaccion_id FROM retirossincuneta WHERE folio = (?) and monto = (?) and contra = (?)"
+                + " and fecha = (?) and cliente_id = (?)";
+        
+
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            comandoSQL.setString(1, retiro.getFolio());
+            comandoSQL.setInt(2, retiro.getMonto());
+            comandoSQL.setString(3, retiro.getContra());
+            comandoSQL.setString(4, retiro.getFecha());
+            comandoSQL.setInt(5, retiro.getCliente_id());
+            ResultSet resultado = comandoSQL.executeQuery();
+          
+            resultado.next();
+
+           int idConsultada = resultado.getInt(1);
+            
+            
+            return idConsultada;
+            
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "transaccion_id no encontrada", e);
+            throw new PersistenciaException("No se ha encontrado ningún transaccion_id", e);
         }
     }
     

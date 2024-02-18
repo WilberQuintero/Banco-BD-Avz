@@ -8,7 +8,6 @@ import Excepciones.PersistenciaException;
 import dto.ClienteDTO;
 import entidadesdominio.Cliente;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,22 +43,33 @@ public class ClienteDAO implements IClienteDAO{
             comandoSQL.setString(1, cliente.getNombre());
             comandoSQL.setString(2, cliente.getApellidoPaterno());
             comandoSQL.setString(3, cliente.getApellidoMaterno());
-            comandoSQL.setDate(4, (Date) cliente.getFechaNac());
+            comandoSQL.setString(4, cliente.getFechaNac());
             comandoSQL.setInt(5, cliente.getUsuario_id());
             comandoSQL.setInt(6, cliente.getDireccion_id());
-
-            comandoSQL.executeUpdate();
      
             
             // 4. Ejecutamos el comando o lo enviamos a la BD
             int registrosModificados = comandoSQL.executeUpdate();
-            LOG.log(Level.INFO, "Se agregaron con éxito {0} ", registrosModificados);
+            LOG.log(Level.INFO, "Se agregaron con éxito {0} clientes ", registrosModificados);
+            
+            // obtener primer registro
+            ResultSet res = comandoSQL.getGeneratedKeys();
+            
+            //nos posicionamos en el primero lugar o en la primera posicion de los resultados
+            res.next();
+            
+            //Creamos el activista que vamos a registrar
+            Cliente clienteGuardado = new Cliente(res.getInt(1), cliente.getNombre(),
+                    cliente.getApellidoPaterno(), cliente.getApellidoMaterno(), 
+                    cliente.getFechaNac(), cliente.getUsuario_id(), cliente.getDireccion_id()
+            );
+            
+            return clienteGuardado;
             
      } catch (Exception e) {
             LOG.log(Level.SEVERE, "No se agregó con éxito el cliente", e);
             throw new PersistenciaException("No se pudo guardar el cliente ", e);
         }
-          return null;
     }
 
     @Override
@@ -107,7 +117,7 @@ public class ClienteDAO implements IClienteDAO{
         resultado.getString(1),
         resultado.getString(2),
         resultado.getString(3),
-        resultado.getDate(4),
+        resultado.getString(4),
         resultado.getInt(5),
         resultado.getInt(6)
     );
@@ -136,7 +146,7 @@ public class ClienteDAO implements IClienteDAO{
                 String nombre = resultado.getString("nombre");
                 String apellidoPat = resultado.getString("apellidoMaterno");
                 String apellidoMat = resultado.getString("apellidoPaterno");
-                Date fechaNac = resultado.getDate("fechaNac");
+                String fechaNac = resultado.getString("fechaNac");
                 int usuarioId = resultado.getInt("usuario_id");
                 int direccionId = resultado.getInt("direccion_id");
 
@@ -152,6 +162,43 @@ public class ClienteDAO implements IClienteDAO{
             throw new PersistenciaException("No se pudieron consultar los clientes", e);
         }
         
+    }
+   
+//   cliente_id int primary key auto_increment,
+//nombre varchar (100) not null,
+//apellidoPaterno varchar (100) not null,
+//apellidoMaterno varchar (100),
+//fechaNaci date not null,
+//direccion_id int,
+//usuario_id int,
+   
+   @Override
+    public int consultarIdCliente(ClienteDTO cliente) throws PersistenciaException {
+        String codigoSQL = "SELECT cliente_id FROM clientes WHERE nombre = (?) and apellidoPaterno = (?) and apellidoMaterno = (?)"
+                + " and fechaNaci = (?) and direccion_id = (?) and usuario_id = (?)";
+
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            comandoSQL.setString(1, cliente.getNombre());
+            comandoSQL.setString(2, cliente.getApellidoPaterno());
+            comandoSQL.setString(3, cliente.getApellidoMaterno());
+            comandoSQL.setString(4, cliente.getFechaNac());
+            comandoSQL.setInt(5, cliente.getDireccion_id());
+            comandoSQL.setInt(6, cliente.getUsuario_id());
+            ResultSet resultado = comandoSQL.executeQuery();
+          
+            resultado.next();
+            
+            int idConsultada = resultado.getInt(1);
+            
+            
+            return idConsultada;
+            
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "cliente_id no encontrada", e);
+            throw new PersistenciaException("No se ha encontrado ningún cliente_id", e);
+        }
     }
    
    }

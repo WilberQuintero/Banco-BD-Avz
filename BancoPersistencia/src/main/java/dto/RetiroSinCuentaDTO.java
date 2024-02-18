@@ -1,7 +1,6 @@
 
 package dto;
 
-import java.util.Date;
 
 /**
  *
@@ -11,10 +10,10 @@ public class RetiroSinCuentaDTO {
     private String folio;
     private int monto;
     private String contra;
-    private Date fecha;
+    private String fecha;
     private int cliente_id;
     
-    public RetiroSinCuentaDTO(String folio, int monto, String contra, Date fecha, int cliente_id) {
+    public RetiroSinCuentaDTO(String folio, int monto, String contra, String fecha, int cliente_id) {
         this.fecha = fecha;
         this.monto = monto;
         this.folio = folio;
@@ -23,11 +22,11 @@ public class RetiroSinCuentaDTO {
     }
 
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
