@@ -3,6 +3,7 @@ dao\TransferenciaDAO.class
 ConexionBD\IConexionBD.class
 Excepciones\PersistenciaException.class
 dao\ICuentaDAO.class
+Pruebas.class
 dao\IClienteDAO.class
 dto\TransferenciaDTO.class
 dao\ClienteDAO.class

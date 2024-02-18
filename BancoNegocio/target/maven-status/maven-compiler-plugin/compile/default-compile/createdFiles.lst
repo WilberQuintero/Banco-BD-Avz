@@ -1,2 +1,3 @@
 Controlador\ControladorNegocio.class
-Validaciones\BancoNegocio.class
+Pruebas\PruebasDeCualquierTipo.class
+Encriptacion\Encriptador.class
