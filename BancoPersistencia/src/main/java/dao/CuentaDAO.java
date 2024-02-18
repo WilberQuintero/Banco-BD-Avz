@@ -31,11 +31,12 @@ public class CuentaDAO implements ICuentaDAO{
     
     @Override
     public Cuenta agregarCuenta(CuentaDTO cuenta) throws PersistenciaException {
-        String codigoSQL = "insert into cuentas () values();";
+        String codigoSQL = "insert into cuentas (cliente_id) values((?));";
         try (Connection conexion = this.conexionBD.crearConexion();
                PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL, 
                        Statement.RETURN_GENERATED_KEYS);)
         {
+            comandoSQL.setInt(1, cuenta.getCliente_id());
             int resultado = comandoSQL.executeUpdate();
             
              LOG.log(Level.INFO, "Se han agregado {0} ", resultado);

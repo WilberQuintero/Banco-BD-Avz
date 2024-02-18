@@ -35,7 +35,7 @@ public class ClienteDAO implements IClienteDAO{
     @Override
     public Cliente agregarCliente(ClienteDTO cliente) throws PersistenciaException {
    
-  String codigoSQL ="INSERT INTO CLIENTES(nombre, apellidoPaterno, apellidoMaterno, fechaNaci, direccion_id, usuario_id) VALUES (?,?,?,?,?,?,)";
+  String codigoSQL ="INSERT INTO CLIENTES(nombre, apellidoPaterno, apellidoMaterno, fechaNaci, direccion_id, usuario_id) VALUES (?,?,?,?,?,?)";
   
          try (Connection conexion = conexionBD.crearConexion();
              PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS);) {

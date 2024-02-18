@@ -18,6 +18,8 @@ import entidadesdominio.Direccion;
 import entidadesdominio.RetiroSinCuenta;
 import entidadesdominio.Transferencia;
 import entidadesdominio.Usuario;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -154,6 +156,27 @@ public class ControladorNegocio {
      public int consultarIdUsuario(UsuarioDTO usuario) throws PersistenciaException {
         return controlador.consultarIdUsuario(usuario);
         }
+     
+     /*public void agregarClientePrimeraVez(DireccionDTO direccion, 
+             UsuarioDTO usuario, ClienteDTO cliente, CuentaDTO cuenta) throws PersistenciaException{
+         //Agrega direccion
+         this.agregarDireccion(direccion);
+         
+         //Agregar Usuario
+         this.agregarUsuario(usuario);
+            
+            //Agregamos al Cliente
+            this.agregarCliente(cliente);
+            
+            //agregamos la cuenta
+            this.agregarCuenta(cuenta);
+     }*/
+     
+     public void agregarDirecYUsuaPrimeraVez(DireccionDTO direccion, UsuarioDTO usuario) throws PersistenciaException{
+         this.agregarDireccion(direccion);
+         this.agregarUsuario(usuario);
+         
+     }
      
      
     

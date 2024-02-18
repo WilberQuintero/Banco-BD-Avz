@@ -6,13 +6,17 @@ package Formularios;
 
 import Controlador.ControladorNegocio;
 import Excepciones.PersistenciaException;
+import com.toedter.calendar.JDateChooser;
 import dao.ClienteDAO;
 import dao.DireccionDAO;
 import dao.UsuarioDAO;
 import dto.ClienteDTO;
+import dto.CuentaDTO;
 import dto.DireccionDTO;
 import dto.UsuarioDTO;
 import entidadesdominio.Usuario;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +32,16 @@ public class FrmRegistro extends javax.swing.JFrame {
      */
     public FrmRegistro() {
         initComponents();
+    }
+    
+    public String convertirFecha(Date fecha){
+        Date fechaActual = JCFechaNac.getDate();
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+            // Convertir la fecha a una cadena con el formato especificado
+            String fechaS = formatoFecha.format(fechaActual);
+            
+            return fechaS;
+        
     }
 
     /**
@@ -227,16 +241,43 @@ public class FrmRegistro extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
         try {
-            DireccionDTO direccion = new DireccionDTO(txtCalle.getText(), txtColonia.getText(), txtNumeroCasa.getText());
-            controlador.agregarDireccion(direccion);
+            /*controlador.agregarClientePrimeraVez( 
+                    new DireccionDTO(txtCalle.getText(), txtColonia.getText(), 
+                            txtNumeroCasa.getText()), 
+                    new UsuarioDTO(txtNombreUsuario.getText(),txtContra.getText()),
+                    new ClienteDTO(txtNombre.getText(), txtAP.getText(), 
+                    txtAM.getText(), this.convertirFecha(JCFechaNac.getDate()),
+                    controlador.consultarIdUsuario(new UsuarioDTO(txtNombreUsuario.getText(), 
+                            txtContra.getText())),
+                    controlador.consultarIdDireccion(new DireccionDTO(txtCalle.getText(), 
+                            txtColonia.getText(), txtNumeroCasa.getText()))),
+                    new CuentaDTO(controlador.consultarIdCliente(new ClienteDTO(txtNombre.getText(),
+                            txtAP.getText(), txtAM.getText(), 
+                            this.convertirFecha(JCFechaNac.getDate()), 
+                            controlador.consultarIdUsuario(new UsuarioDTO(txtNombreUsuario.getText(), 
+                            txtContra.getText())),
+                    controlador.consultarIdDireccion(new DireccionDTO(txtCalle.getText(), 
+                            txtColonia.getText(), txtNumeroCasa.getText())))))
+            );*/
             
-            UsuarioDTO usuario = new UsuarioDTO(txtNombreUsuario.getText(), txtContra.getText());
-            controlador.agregarUsuario(usuario);
+            controlador.agregarDirecYUsuaPrimeraVez(new DireccionDTO(txtCalle.getText(), txtColonia.getText(),
+                    txtNumeroCasa.getText()),
+                    new UsuarioDTO(txtNombreUsuario.getText(),txtContra.getText()));
             
-            ClienteDTO cliente = new ClienteDTO(txtNombre.getText(), txtAP.getText(), 
-                    txtAM.getText(), JCFechaNac.getDateFormatString(),
-                    controlador.consultarIdUsuario(usuario), controlador.consultarIdDireccion(direccion));
-            controlador.agregarCliente(cliente);
+            controlador.agregarCliente(new ClienteDTO(txtNombre.getText(), txtAP.getText(), 
+                    txtAM.getText(), this.convertirFecha(JCFechaNac.getDate()),
+                    controlador.consultarIdUsuario(new UsuarioDTO(txtNombreUsuario.getText(), 
+                            txtContra.getText())),
+                    controlador.consultarIdDireccion(new DireccionDTO(txtCalle.getText(), 
+                            txtColonia.getText(), txtNumeroCasa.getText()))));
+            
+            controlador.agregarCuenta(new CuentaDTO(controlador.consultarIdCliente(new ClienteDTO(txtNombre.getText(),
+                            txtAP.getText(), txtAM.getText(), 
+                            this.convertirFecha(JCFechaNac.getDate()), 
+                            controlador.consultarIdUsuario(new UsuarioDTO(txtNombreUsuario.getText(), 
+                            txtContra.getText())),
+                    controlador.consultarIdDireccion(new DireccionDTO(txtCalle.getText(), 
+                            txtColonia.getText(), txtNumeroCasa.getText()))))));
         
         FrmRegistroDeCuenta rcuenta = new FrmRegistroDeCuenta();
         rcuenta.setVisible(true);

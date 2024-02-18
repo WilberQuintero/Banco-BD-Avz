@@ -17,6 +17,12 @@ public class CuentaDTO {
     public CuentaDTO() {
     }
 
+    public CuentaDTO(int cliente_id) {
+        this.cliente_id = cliente_id;
+    }
+    
+    
+
     public CuentaDTO(String numeroCuenta, String fechaApertura, int saldo, String estado, int cliente_id) {
         this.numeroCuenta = numeroCuenta;
         this.fechaApertura = fechaApertura;

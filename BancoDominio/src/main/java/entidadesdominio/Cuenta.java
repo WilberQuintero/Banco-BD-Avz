@@ -22,6 +22,12 @@ public class Cuenta {
     public Cuenta() {
     }
 
+    public Cuenta(int cliente_id) {
+        this.cliente_id = cliente_id;
+    }
+    
+    
+
     public Cuenta(int cuenta_id, String numeroCuenta, String fechaApertura, float saldo, String estado, int cliente_id) {
         this.cuenta_id = cuenta_id;
         this.numeroCuenta = numeroCuenta;
