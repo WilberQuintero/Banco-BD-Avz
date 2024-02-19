@@ -6,6 +6,7 @@ import ConexionBD.ConexionBD;
 import ConexionBD.IConexionBD;
 import Excepciones.PersistenciaException;
 import dto.ClienteDTO;
+import dto.UsuarioDTO;
 import entidadesdominio.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -228,6 +229,62 @@ public class ClienteDAO implements IClienteDAO{
             LOG.log(Level.SEVERE, "Cliente no encontrado", e);
             throw new PersistenciaException("No se ha encontrado ningún cliente", e);
         }
+    }
+
+    @Override
+    public int consultarIdCliente(int usuario_id) throws PersistenciaException {
+        String codigoSQL = "SELECT cliente_id FROM clientes WHERE usuario_id = (?)";
+
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            comandoSQL.setInt(1, usuario_id);
+            ResultSet resultado = comandoSQL.executeQuery();
+          
+            resultado.next();
+            
+            int idConsultada = resultado.getInt(1);
+            
+            
+            return idConsultada;
+            
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "cliente_id no encontrada", e);
+            throw new PersistenciaException("No se ha encontrado ningún cliente_id", e);
+        }
+    }
+
+    @Override
+    public int consultarEdadCliente(int cliente_id) throws PersistenciaException {
+        String codigoSQL = "select year(now()) - year(fechanaci) - \n"
+                + "    case "
+                + "        when month(now()) < month(fechanaci) or  "
+                + "             (month(now()) = month(fechanaci) and day(now()) < day(fechanaci)) "
+                + "        then 1 "
+                + "        else 0 "
+                + "    end as Edad "
+                + "from clientes "
+                + "where cliente_id = ?";
+        
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            comandoSQL.setInt(1, cliente_id);
+            ResultSet resultado = comandoSQL.executeQuery();
+          
+            resultado.next();
+            
+            int idConsultada = resultado.getInt(1);
+            
+            
+            return idConsultada;
+            
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Edad no encontrada", e);
+            throw new PersistenciaException("No se ha encontrado ningua edad", e);
+        }
+        
+        
     }
    
    }

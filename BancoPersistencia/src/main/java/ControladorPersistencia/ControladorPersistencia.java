@@ -83,6 +83,14 @@ public class ControladorPersistencia implements IControladorPersistencia{
      public List<Cliente> consultarTodosClientes() throws PersistenciaException {
          return this.clienteDAO.consultarTodosClientes();
      }
+     
+     public int consultarIdCliente(int usuario_id) throws PersistenciaException {
+         return this.clienteDAO.consultarIdCliente(usuario_id);
+     }
+     
+     public int consultarEdadCliente(int cliente_id) throws PersistenciaException{
+         return this.clienteDAO.consultarEdadCliente(cliente_id);
+     }
            
      
      // -- DIRECCION

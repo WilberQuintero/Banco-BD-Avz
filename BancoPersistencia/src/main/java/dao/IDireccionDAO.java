@@ -18,6 +18,5 @@ public interface IDireccionDAO {
     public Direccion consultarDireccionMasNueva() throws PersistenciaException;
     public List<Direccion> consultarTodasDirecciones() throws PersistenciaException;
     public int consultarIdDireccion(DireccionDTO direccion) throws PersistenciaException;
-
        
 }

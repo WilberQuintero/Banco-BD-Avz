@@ -70,6 +70,14 @@ public class ControladorNegocio {
      public int consultarIdCliente(ClienteDTO cliente) throws PersistenciaException {
         return controlador.consultarIdCliente(cliente);
     }
+     
+     public int consultarIdCliente(int usuario_id) throws PersistenciaException {
+         return controlador.consultarIdCliente(usuario_id);
+     }
+     
+     public int consultarEdadCliente(int cliente_id) throws PersistenciaException{
+         return controlador.consultarEdadCliente(cliente_id);
+     }
            
      
      // -- DIRECCION
