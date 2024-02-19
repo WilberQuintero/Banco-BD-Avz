@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Formularios;
 
 import ConexionBD.ConexionBD;
 import Controlador.ControladorNegocio;
 import Excepciones.PersistenciaException;
 import com.mysql.cj.xdevapi.Statement;
+import dto.ClienteDTO;
 import dto.UsuarioDTO;
 import entidadesdominio.Usuario;
 import java.sql.ResultSet;
@@ -194,7 +192,9 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         boolean pass = this.validarUsuarioYContra(txtUsuario.getText(), PFContra.getText());
         
         if(pass == true){
-           FrmCuentas cuentas = new FrmCuentas();
+           FrmCuentas cuentas = new FrmCuentas(con.consultarIdCliente(
+           con.consultarIdUsuario(new UsuarioDTO(txtUsuario.getText(), 
+                   con.encriptar(PFContra.getText())))));
             cuentas.setVisible(true);
             this.setVisible(false); 
         }
@@ -255,7 +255,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
                 new FrmIniciarSesion().setVisible(true);
             }
         });
-        ConexionBD conexion = new  ConexionBD("jdbc:mysql://localhost:3306/Avance1BD", "root", "23929Ast"); 
+        ConexionBD conexion = new  ConexionBD("jdbc:mysql://localhost:3306/Avance1BD", "root", "wilber"); 
         
     }
     
@@ -300,12 +300,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
     public boolean validarUsuarioYContra(String usuario, String contra) throws PersistenciaException{
         Usuario us = new Usuario(con.consultarIdUsuario(
                 new UsuarioDTO(usuario, con.encriptar(contra))), usuario, contra);
-        if(!this.validarContra(contra, 16, 6)){
-        return false;
-    }
-        if(!this.validarUsuario(usuario, 30)){
-            return false;
-        }
+        
         if(!usuario.equals(us.getNombreUsusario()) && 
                 !contra.equals(con.desEncriptar(us.getContra()))){
             return false;

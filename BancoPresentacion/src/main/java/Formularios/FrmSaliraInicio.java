@@ -130,8 +130,8 @@ public class FrmSaliraInicio extends javax.swing.JFrame {
             this.setVisible(false);     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        FrmCuentas cuentas = new FrmCuentas();
-        cuentas.setVisible(true);
+       // FrmCuentas cuentas = new FrmCuentas();
+        //cuentas.setVisible(true);
         this.setVisible(false);
 
     }//GEN-LAST:event_btnCancelarActionPerformed

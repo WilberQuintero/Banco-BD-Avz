@@ -4,19 +4,25 @@
  */
 package Formularios;
 
+import Excepciones.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Usuario
  */
 public class FrmCuentas extends javax.swing.JFrame {
+    int id_cliente;
 
     /**
      * Creates new form FrmCuentas
      */
-    public FrmCuentas() {
+    public FrmCuentas(int id_cliente) {
         initComponents();
         //Hace que la ventana aparezca en medio
         setLocationRelativeTo(null);
+        this.id_cliente = id_cliente;
     }
 
     /**
@@ -144,7 +150,11 @@ public class FrmCuentas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void brnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnCrearCuentaActionPerformed
-        // TODO add your handling code here:
+        FrmCrearCuenta cuentaNew = new FrmCrearCuenta(id_cliente);
+        cuentaNew.setVisible(true);
+        this.setVisible(false);
+   
+
     }//GEN-LAST:event_brnCrearCuentaActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -153,9 +163,15 @@ public class FrmCuentas extends javax.swing.JFrame {
         this.setVisible(false);    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
-        FrmPerfil perfil = new FrmPerfil();
-        perfil.setVisible(true);
-        this.setVisible(false);
+        
+        try {
+            FrmPerfil perfil = new FrmPerfil(id_cliente);
+            perfil.setVisible(true);
+            this.setVisible(false);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(FrmCuentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
 
     }//GEN-LAST:event_btnPerfilActionPerformed
 
