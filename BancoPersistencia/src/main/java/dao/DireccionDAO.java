@@ -75,23 +75,42 @@ public class DireccionDAO implements IDireccionDAO{
     @Override
     public Direccion actualizarDireccion(Direccion direccion) throws PersistenciaException {
 
-        String codigoSQL = "UPDATE DIRECCIONES SET CALLE=?, COLONIA=?, NUMERO=? WHERE id=?";
+        String codigoSQL = "UPDATE direcciones SET calle = ?, colonia = ?, numero = ? WHERE direccion_id = ?";
+    
+    try (Connection conexion = this.conexionBD.crearConexion();
+         PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL, Statement.RETURN_GENERATED_KEYS)) {
         
-        try (Connection conexion = this.conexionBD.crearConexion();
-            PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+        comandoSQL.setString(1, direccion.getCalle());
+        comandoSQL.setString(2, direccion.getColonia());
+        comandoSQL.setString(3, direccion.getNumero());
+        comandoSQL.setInt(4, direccion.getDireccion_id());
+        
+        int registro = comandoSQL.executeUpdate();
+        LOG.log(Level.INFO, "Se actualizaron con éxito {0} clientes ", registro);
+
+        // Verificar si se actualizó algún registro
+        if (registro > 0) {
+            // Obtener las claves generadas automáticamente
+            ResultSet res = comandoSQL.getGeneratedKeys();
             
-           comandoSQL.setString(1, direccion.getCalle());
-           comandoSQL.setString(2, direccion.getColonia());
-           comandoSQL.setString(3,direccion.getNumero());
-           
-           int registros = comandoSQL.executeUpdate();
-           LOG.log(Level.INFO, "Se actualizó con exito {0} ", registros);
-       return consultarDireccion(direccion.getDireccion_id());
-           
-        } catch (Exception e){
-           LOG.log(Level.SEVERE, "No se pudo actualizar la direccion", e);
-           throw new PersistenciaException("No se pudo actualizar la direccion ", e);
+            // Verificar si hay alguna clave generada
+            if (res.next()) {
+                // Crear la dirección actualizada
+                Direccion direccionActualizada = new Direccion(
+                    res.getInt(1), res.getString(2),
+                    res.getString(3), res.getString(4)
+                );
+                
+                return direccionActualizada;
+            }
         }
+        
+        // Si no se actualizó ningún registro o no se pudo obtener la dirección actualizada, devuelve null
+        return null;
+    } catch (Exception e) {
+        LOG.log(Level.SEVERE, "No se pudo actualizar la dirección", e);
+        throw new PersistenciaException("No se pudo actualizar la dirección", e);
+    }
         
         
     }

@@ -4,7 +4,9 @@
  */
 package Formularios;
 
+import Controlador.ControladorNegocio;
 import Excepciones.PersistenciaException;
+import entidadesdominio.Cliente;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,7 +20,7 @@ public class FrmCuentas extends javax.swing.JFrame {
     /**
      * Creates new form FrmCuentas
      */
-    public FrmCuentas(int id_cliente) {
+    public FrmCuentas(int id_cliente) throws PersistenciaException {
         initComponents();
         //Hace que la ventana aparezca en medio
         setLocationRelativeTo(null);
@@ -40,6 +42,7 @@ public class FrmCuentas extends javax.swing.JFrame {
         brnCrearCuenta = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        comboCuentas = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 255));
@@ -47,12 +50,10 @@ public class FrmCuentas extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(229, 246, 246));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Cuentas");
 
         btnPerfil.setBackground(new java.awt.Color(175, 193, 210));
         btnPerfil.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        btnPerfil.setForeground(new java.awt.Color(0, 0, 0));
         btnPerfil.setText("Perfil");
         btnPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,7 +63,6 @@ public class FrmCuentas extends javax.swing.JFrame {
 
         brnCrearCuenta.setBackground(new java.awt.Color(175, 193, 210));
         brnCrearCuenta.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        brnCrearCuenta.setForeground(new java.awt.Color(0, 0, 0));
         brnCrearCuenta.setText("Crear cuenta");
         brnCrearCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,7 +72,6 @@ public class FrmCuentas extends javax.swing.JFrame {
 
         btnSalir.setBackground(new java.awt.Color(175, 193, 210));
         btnSalir.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        btnSalir.setForeground(new java.awt.Color(0, 0, 0));
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,15 +81,23 @@ public class FrmCuentas extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(203, 218, 245));
 
+        comboCuentas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 426, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(76, 76, 76)
+                .addComponent(comboCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 211, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(comboCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -150,7 +157,11 @@ public class FrmCuentas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void brnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnCrearCuentaActionPerformed
-        // TODO add your handling code here:
+        FrmCrearCuenta cuentaNew = new FrmCrearCuenta(id_cliente);
+        cuentaNew.setVisible(true);
+        this.setVisible(false);
+   
+
     }//GEN-LAST:event_brnCrearCuentaActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -176,6 +187,7 @@ public class FrmCuentas extends javax.swing.JFrame {
     private javax.swing.JButton brnCrearCuenta;
     private javax.swing.JButton btnPerfil;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox<String> comboCuentas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

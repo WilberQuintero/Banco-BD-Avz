@@ -76,7 +76,7 @@ public class ClienteDAO implements IClienteDAO{
     @Override
     public Cliente actualizarCliente(Cliente cliente) throws PersistenciaException {
 
-            String codigoSQL = "UPDATE CLIENTES SET nombre=?, apellidoPaterno=?, apellidoMaterno=? WHERE id=?";
+            String codigoSQL = "UPDATE CLIENTES SET nombre=?, apellidoPaterno=?, apellidoMaterno=? WHERE cliente_id=?";
 
         try (Connection conexion = this.conexionBD.crearConexion();
              PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
@@ -84,9 +84,8 @@ public class ClienteDAO implements IClienteDAO{
             comandoSQL.setString(1, cliente.getNombre());
             comandoSQL.setString(2, cliente.getApellidoPaterno());
             comandoSQL.setString(3, cliente.getApellidoMaterno());
-            comandoSQL.setInt(5, cliente.getUsuario_Id());
-            comandoSQL.setInt(6, cliente.getDireccion_Id());
-              comandoSQL.executeUpdate();
+            comandoSQL.setInt(4, cliente.getCliente_id());
+              
 
             int registros = comandoSQL.executeUpdate();
            LOG.log(Level.INFO, "Se actualizó el cliente con éxito {0} ", registros);

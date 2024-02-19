@@ -3,6 +3,8 @@ package Formularios;
 
 import Controlador.ControladorNegocio;
 import Excepciones.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,12 +17,15 @@ public class FrmPerfil extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmPerfil
+     * @param id_cliente
+     * @throws Excepciones.PersistenciaException
      */
     public FrmPerfil(int id_cliente) throws PersistenciaException {
         initComponents();
         //Hace que la ventana aparezca en medio
         setLocationRelativeTo(null);
         String aM = "";
+        this.id_cliente = id_cliente;
         if(!con.consultarCliente(id_cliente).getApellidoMaterno().equals("N/D")){
             aM = con.consultarCliente(id_cliente).getApellidoMaterno();
         }
@@ -39,6 +44,9 @@ public class FrmPerfil extends javax.swing.JFrame {
         
         lblNumero.setText(lblNumero.getText() + " " + con.consultarDireccion(
                 con.consultarCliente(id_cliente).getDireccion_Id()).getNumero());
+        
+        System.out.println(id_cliente);
+        
     }
 
     /**
@@ -62,6 +70,7 @@ public class FrmPerfil extends javax.swing.JFrame {
         lblFechaNac = new javax.swing.JLabel();
         lblEdad = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,31 +108,39 @@ public class FrmPerfil extends javax.swing.JFrame {
             }
         });
 
+        btnActualizar.setBackground(new java.awt.Color(175, 193, 210));
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel2)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(160, 160, 160)
-                                .addComponent(jLabel4))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblCalle)
-                                    .addComponent(lblNombreCliente)
-                                    .addComponent(lblColonia)
-                                    .addComponent(lblNumero)
-                                    .addComponent(lblFechaNac)
-                                    .addComponent(lblEdad)))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(btnAceptar)))
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(160, 160, 160)
+                            .addComponent(jLabel4))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(36, 36, 36)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblCalle)
+                                .addComponent(lblNombreCliente)
+                                .addComponent(lblColonia)
+                                .addComponent(lblNumero)
+                                .addComponent(lblFechaNac)
+                                .addComponent(lblEdad)
+                                .addComponent(btnAceptar)))))
+                .addGap(19, 19, 19)
+                .addComponent(btnActualizar)
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +162,9 @@ public class FrmPerfil extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblNumero)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(btnAceptar)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAceptar)
+                    .addComponent(btnActualizar))
                 .addContainerGap())
         );
 
@@ -193,12 +212,29 @@ public class FrmPerfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        FrmCuentas cuentas = new FrmCuentas(id_cliente);
+       
+        try {
+            FrmCuentas cuentas = new FrmCuentas(con.consultarCliente(id_cliente).getCliente_id());
             cuentas.setVisible(true);
-            this.setVisible(false); 
+            this.setVisible(false);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(FrmPerfil.class.getName()).log(Level.SEVERE, null, ex);
+        } 
         
 
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        
+        try {
+            FrmActualizarDatos actualizar = new FrmActualizarDatos(id_cliente);
+            actualizar.setVisible(true);
+            this.setVisible(false);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(FrmPerfil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,6 +273,7 @@ public class FrmPerfil extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
