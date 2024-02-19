@@ -180,5 +180,53 @@ public class RetiroSinCuentaDAO implements IRetiroSinCuentaDAO{
             throw new PersistenciaException("No se ha encontrado ningún retiro", e);
         }
     }
+
+    @Override
+    public int consultarIdRetiro(String folio) throws PersistenciaException {
+        String codigoSQL = "SELECT transaccion_id FROM retirossincuneta WHERE folio = (?)";
+        
+
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            comandoSQL.setString(1, folio);
+            ResultSet resultado = comandoSQL.executeQuery();
+          
+            resultado.next();
+
+           int idConsultada = resultado.getInt(1);
+            
+            
+            return idConsultada;
+            
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "transaccion_id no encontrada", e);
+            throw new PersistenciaException("No se ha encontrado ningún transaccion_id", e);
+        }
+    }
+
+    @Override
+    public RetiroSinCuenta actualizaEstadoRetiro(int id, String folio) throws PersistenciaException {
+        String codigoSQL = "UPDATE retirossincuenta SET estado = ? WHERE folio=? and transaccion_id = ? and estado = 'No cobrado'";
+
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL)) {
+
+            comandoSQL.setString(1, "Cobrado");
+            comandoSQL.setString(2, folio);
+            comandoSQL.setInt(3, id);
+              
+
+            int registros = comandoSQL.executeUpdate();
+           LOG.log(Level.INFO, "Se actualizó el retiro con éxito {0} ", registros);
+           
+            
+            return consultarRetiro(id);
+
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "No se pudo actualizar el cliente", e);
+            throw new PersistenciaException("No se pudo actualizar el cliente ", e);
+        }
+    }
     
 }

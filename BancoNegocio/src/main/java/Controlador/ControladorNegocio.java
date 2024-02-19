@@ -33,7 +33,11 @@ public class ControladorNegocio {
           return cuentaAgregada;
       }
       
-    public Cuenta consutarCuenta(int cuenta_id) throws PersistenciaException {
+      public Cuenta actualizarEstadoCuenta(int cuenta_id) throws PersistenciaException {
+          return controlador.actualizarEstadoCuenta(cuenta_id);
+      }
+      
+    public Cuenta consultarCuenta(int cuenta_id) throws PersistenciaException {
         Cuenta cuentaConsultada = controlador.consutarCuenta(cuenta_id);
         return cuentaConsultada;
     }
@@ -111,6 +115,10 @@ public class ControladorNegocio {
          return retiroAgregado;
      }
      
+     public RetiroSinCuenta actualizaEstadoRetiro(int id, String folio) throws PersistenciaException{
+         return controlador.actualizaEstadoRetiro(id, folio);
+     }
+     
      public RetiroSinCuenta consultarRetiro (int transaccion_id) throws PersistenciaException {
          RetiroSinCuenta retiroConsultado = controlador.consultarRetiro(transaccion_id);
          return retiroConsultado;
@@ -122,6 +130,10 @@ public class ControladorNegocio {
      
      public int consultarIdRetiro(RetiroSinCuentaDTO retiro) throws PersistenciaException {
         return controlador.consultarIdRetiroSC(retiro);
+    }
+     
+     public int consultarIdRetiro(String folio) throws PersistenciaException {
+        return controlador.consultarIdRetiroSC(folio);
     }
     
      
@@ -205,6 +217,10 @@ public class ControladorNegocio {
      
      public Cuenta consultarCuentaMasNueva () throws PersistenciaException{
          return controlador.consultarCuentaMasNueva();
+     }
+     
+     public Cuenta consultarCuentaMasNuevaDeCliente (int cliente_id) throws PersistenciaException{
+         return controlador.consultarCuentaMasNuevaDeCliente(cliente_id);
      }
      
      public String encriptar(String contra){

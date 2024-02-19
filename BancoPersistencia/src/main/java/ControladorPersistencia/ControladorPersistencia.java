@@ -54,6 +54,11 @@ public class ControladorPersistencia implements IControladorPersistencia{
           return cuentaAgregada;
       }
       
+      public Cuenta actualizarEstadoCuenta(int cuenta_id) throws PersistenciaException {
+          Cuenta cuentaActualizada = this.cuentaDAO.actualizarEstadoCuenta(cuenta_id);
+          return cuentaActualizada;
+      }
+      
     public Cuenta consutarCuenta(int cuenta_id) throws PersistenciaException {
         Cuenta cuentaConsultada = this.cuentaDAO.consutarCuenta(cuenta_id);
         return cuentaConsultada;
@@ -113,9 +118,15 @@ public class ControladorPersistencia implements IControladorPersistencia{
          return this.direccionDAO.consultarTodasDirecciones();
     }
      
+    //retiro
      public RetiroSinCuenta agregarRetiro(RetiroSinCuentaDTO retiro) throws PersistenciaException {
          RetiroSinCuenta retiroAgregado = this.retiroDAO.agregarRetiro(retiro);
          return retiroAgregado;
+     }
+     
+     public RetiroSinCuenta actualizaEstadoRetiro(int id, String folio) throws PersistenciaException{
+         RetiroSinCuenta retiroActualizado = this.retiroDAO.actualizaEstadoRetiro(id, folio);
+         return retiroActualizado;
      }
      
      public RetiroSinCuenta consultarRetiro (int transaccion_id) throws PersistenciaException {
@@ -179,6 +190,10 @@ public class ControladorPersistencia implements IControladorPersistencia{
          return this.retiroDAO.consultarIdRetiro(retiro);
      }
      
+     public int consultarIdRetiroSC(String folio)throws PersistenciaException{
+         return this.retiroDAO.consultarIdRetiro(folio);
+     }
+     
      public int consultarIdTransferencia(TransferenciaDTO transferencia)throws PersistenciaException{
          return this.transferenciaDAO.consultarIdTransferencia(transferencia);
      }
@@ -205,6 +220,10 @@ public class ControladorPersistencia implements IControladorPersistencia{
      
      public Cuenta consultarCuentaMasNueva () throws PersistenciaException{
          return this.cuentaDAO.consutarCuentaMasNueva();
+     }
+     
+     public Cuenta consultarCuentaMasNuevaDeCliente (int cliente_id) throws PersistenciaException{
+         return this.cuentaDAO.consutarCuentaMasNuevaDeUnCliente(cliente_id);
      }
      
     
