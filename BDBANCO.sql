@@ -15,8 +15,8 @@ numero varchar (100) not null
 
 create table Usuarios (
 usuario_id int primary key auto_increment,
-nombreUsuario varchar (100) not null,
-contra varchar (100) not null
+nombreUsuario varchar (30) not null unique ,
+contra varchar (500) not null
 );
 
 
@@ -24,7 +24,7 @@ create table Clientes (
 cliente_id int primary key auto_increment,
 nombre varchar (100) not null,
 apellidoPaterno varchar (100) not null,
-apellidoMaterno varchar (100),
+apellidoMaterno varchar (100) default "N/D",
 fechaNaci date not null,
 direccion_id int,
 usuario_id int,
@@ -47,7 +47,7 @@ foreign key (cliente_id) references Clientes (cliente_id)
 create table Transferencias (
 transaccion_id int primary key auto_increment,
 cuentaDestino varchar (100) not null,
-monto int (100) not null,
+monto int not null,
 fecha date not null,
 cuenta_id int,
 foreign key (cuenta_id) references Cuentas (cuenta_id)
@@ -55,16 +55,18 @@ foreign key (cuenta_id) references Cuentas (cuenta_id)
 
 create table RetirosSinCuenta (
 transaccion_id int primary key auto_increment,
-folio varchar (100) not null,
-monto int (100) not null,
+folio int not null default 0,
+monto int not null,
 contra varchar (100) not null,
-fecha date not null,
-cliente_id int,
-foreign key (cliente_id) references Clientes (cliente_id)
+fecha datetime not null,
+fechaFin dateTime not null,
+estado enum ("Cobrado","No cobrado") not null default "No cobrado",
+cuenta_id int,
+foreign key (cuenta_id) references Cuentas (cuenta_id)
 );
+ 
 
 
-
-insert into cuentas () values();
--- drop database avance1bd;
+insert into retirossincuenta (monto, cuenta_id) values(100, 1);
+ -- drop database avance1bd;
 
